@@ -2,6 +2,11 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    //Navigation
+    alias(libs.plugins.jetbrains.kotlin.serialization)
+
+    //Room
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -56,4 +61,42 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.kotlinx.serialization)
+
+    //ViewModel
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    //DataStore
+    implementation(libs.androidx.datastore.preferences)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Charts
+    implementation (libs.compose.charts)
+
+
+    // DateTimePicker
+    implementation(libs.datetime)
+
+    // RetroFit
+    implementation(libs.retrofit)
+    implementation(libs.converterMoshi)
+
+    // Moshi
+    implementation(libs.moshi)
+
+    //Koin
+    implementation(project.dependencies.platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    //Testing
+    debugImplementation(libs.androidx.ui.test.manifest)
+    androidTestImplementation(libs.androidx.ui.test.junit4)
 }
