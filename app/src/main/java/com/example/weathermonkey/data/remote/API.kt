@@ -1,6 +1,6 @@
 package com.example.weathermonkey.data.remote
 
-import CurrentWeatherModel
+import HistoryWeatherModel
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -26,7 +26,7 @@ interface APIService {
         @Query("longitude") longitude: Double,
         @Query("start_date") start_date: String,
         @Query("end_date") end_date: String,
-    ): CurrentWeatherModel
+    ): HistoryWeatherModel
 }
 
 object WeatherAPI {

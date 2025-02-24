@@ -1,6 +1,6 @@
 import com.squareup.moshi.Json
 
-data class CurrentWeatherModel(
+data class HistoryWeatherModel(
     @Json(name = "latitude")
     val latitude: Double,
     @Json(name = "longitude")
