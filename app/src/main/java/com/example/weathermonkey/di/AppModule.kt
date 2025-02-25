@@ -1,15 +1,14 @@
 package com.example.weathermonkey.di
 
-import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.local.LocationsDao
 import com.example.weathermonkey.data.local.LocationsDatabase
 import com.example.weathermonkey.data.remote.WeatherAPI
-import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryImpl
-import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryInterface
-import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryMock
+import com.example.weathermonkey.data.repository.WeatherRepositoryImpl
+import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.module
 
 
 val appModule = module {
@@ -26,12 +25,10 @@ val appModule = module {
         WeatherAPI.retrofitService
     }
 
-    single<HistoryWeatherRepositoryInterface> {
+    single<WeatherRepositoryInterface> {
         //HistoryWeatherRepositoryMock(get())
-        HistoryWeatherRepositoryImpl(get())
+        WeatherRepositoryImpl(get())
     }
-
-
 
     viewModelOf(::WeatherViewModel)
 }
