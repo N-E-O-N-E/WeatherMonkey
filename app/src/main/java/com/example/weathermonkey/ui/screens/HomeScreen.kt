@@ -52,5 +52,9 @@ fun HomeScreen(
             Text(text = "Standort aktualisieren")
         }
     }
+
+    Column {
+        Text(text = "Test")
+    }
 }
 
