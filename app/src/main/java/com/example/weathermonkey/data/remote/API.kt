@@ -10,6 +10,8 @@ import retrofit2.http.Query
 
 const val BASE_URL = "https://archive-api.open-meteo.com/"
 
+// Muss komplett in App-Modul (KOIN) liegen
+
 private val moshi = Moshi.Builder()
     .add(KotlinJsonAdapterFactory())
     .build()
