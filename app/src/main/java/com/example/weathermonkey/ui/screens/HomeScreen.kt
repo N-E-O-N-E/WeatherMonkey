@@ -6,10 +6,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -35,6 +40,7 @@ fun HomeScreen(
     val locationPermissionState = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val locationState = weatherViewModel.location.observeAsState()
     var shouldFetchLocation by remember { mutableStateOf(false) }
+    val temperatureState by weatherViewModel.temperature.observeAsState()
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
@@ -51,6 +57,16 @@ fun HomeScreen(
             println("LaunchedEffect: Standort wird nicht aktualisiert (false)")
         }
     }
+    LaunchedEffect(locationState.value) {
+        val location = locationState.value
+        if (location != null) {
+            weatherViewModel.fetchTemperatureByLocation(
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -63,9 +79,28 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            shouldFetchLocation = !shouldFetchLocation        }) {
+            shouldFetchLocation = !shouldFetchLocation
+        }) {
             Text(text = "Standort aktualisieren")
+        }
+
+        Card(
+            elevation = CardDefaults.cardElevation(8.dp)
+        ) {
+            Column(
+                modifier = Modifier.padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = "Aktuelle Temperatur:")
+                temperatureState?.let {
+                    Text(
+                        text = it,
+                        style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                    )
+                } ?: Text(text = "Daten werden geladen...")
+            }
         }
     }
 }
+
 

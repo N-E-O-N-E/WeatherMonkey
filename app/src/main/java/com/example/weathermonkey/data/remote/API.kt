@@ -8,7 +8,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-const val BASE_URL = "https://archive-api.open-meteo.com/"
+const val BASE_URL = "https://api.open-meteo.com/"
 
 // Muss komplett in App-Modul (KOIN) liegen
 
@@ -22,7 +22,7 @@ private val retrofit = Retrofit.Builder()
     .build()
 
 interface APIService {
-    @GET("v1/archive?latitude=49.443&longitude=7.7716&start_date=2025-02-24&end_date=2025-02-24&hourly=temperature_2m&timezone=auto")
+    @GET("v1/forecast")
     suspend fun getWeatherData(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
@@ -30,11 +30,13 @@ interface APIService {
         @Query("end_date") end_date: String,
     ): WeatherModel
 
-    @GET("v1/forecast?latitude=49.443&longitude=7.7716&hourly=temperature_2m&timezone=auto&forecast_days=1")
+    @GET("v1/forecast")
     suspend fun getCurrentWeatherData(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("forecast_days") forecast_days: Int,
+        @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min",
+        @Query("timezone") timezone: String = "auto"
     ): WeatherModel
 
 }

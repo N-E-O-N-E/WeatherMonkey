@@ -2,6 +2,7 @@ package com.example.weathermonkey.data.repository
 
 import WeatherModel
 import com.example.weathermonkey.data.remote.WeatherAPI
+import com.example.weathermonkey.data.remote.WeatherResponse
 
 interface WeatherRepositoryInterface {
 
@@ -21,6 +22,7 @@ interface WeatherRepositoryInterface {
 
 class WeatherRepositoryImpl(private val apiService: WeatherAPI) :
     WeatherRepositoryInterface {
+
     override suspend fun fetchCurrentWeatherData(
         latitude: Double,
         longitude: Double,

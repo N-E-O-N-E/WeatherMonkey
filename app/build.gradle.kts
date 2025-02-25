@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.weathermonkey"
-        minSdk = 26
+        minSdk = 28
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -102,6 +102,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
 
     //GPS
-    implementation("com.google.android.gms:play-services-location:21.1.0")
-    implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
+    implementation(libs.play.services.location)
+
+    // Permissions
+    implementation(libs.accompanist.permissions)
 }
