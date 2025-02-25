@@ -2,18 +2,8 @@ package com.example.weathermonkey.data.repository
 
 import Daily
 import DailyUnits
-import HistoryWeatherModel
+import WeatherModel
 import com.example.weathermonkey.data.remote.WeatherAPI
-
-interface HistoryWeatherRepositoryInterface {
-
-    suspend fun fetchWeatherData(
-        latitude: Double,
-        longitude: Double,
-        start_date: String,
-        end_date: String,
-    ): HistoryWeatherModel
-}
 
 class HistoryWeatherRepositoryMock(private val apiService: WeatherAPI) :
     HistoryWeatherRepositoryInterface {
@@ -22,8 +12,8 @@ class HistoryWeatherRepositoryMock(private val apiService: WeatherAPI) :
         longitude: Double,
         start_date: String,
         end_date: String
-    ): HistoryWeatherModel {
-        val result = HistoryWeatherModel(
+    ): WeatherModel {
+        val result = WeatherModel(
             latitude = 53.5,
             longitude = 9.9,
             generationtimeMs = 6.7,
@@ -45,22 +35,4 @@ class HistoryWeatherRepositoryMock(private val apiService: WeatherAPI) :
         return result
     }
 
-}
-
-
-class HistoryWeatherRepositoryImpl(private val apiService: WeatherAPI) :
-    HistoryWeatherRepositoryInterface {
-    override suspend fun fetchWeatherData(
-        latitude: Double,
-        longitude: Double,
-        start_date: String,
-        end_date: String
-    ): HistoryWeatherModel {
-        return apiService.retrofitService.getWeatherData(
-            latitude = latitude,
-            longitude = longitude,
-            start_date = start_date,
-            end_date = end_date
-        )
-    }
 }
