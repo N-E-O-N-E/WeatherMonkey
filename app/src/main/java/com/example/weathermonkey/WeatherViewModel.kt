@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
+import com.example.weathermonkey.di.App
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -27,7 +28,7 @@ class WeatherViewModel(
     fun fetchLocation() {
         val cancellationTokenSource = CancellationTokenSource()
         fusedLocationProviderClient.getCurrentLocation(
-            Priority.PRIORITY_HIGH_ACCURACY,
+            Priority.PRIORITY_BALANCED_POWER_ACCURACY,
             cancellationTokenSource.token
         ).addOnSuccessListener { location ->
             _location.postValue(location)
@@ -35,6 +36,4 @@ class WeatherViewModel(
             _location.postValue(null)
         }
     }
-
-
 }

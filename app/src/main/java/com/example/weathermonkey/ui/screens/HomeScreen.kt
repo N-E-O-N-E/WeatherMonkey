@@ -10,12 +10,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.weathermonkey.WeatherViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionStatus
+import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,10 +29,10 @@ fun HomeScreen(
 ) {
 
     val locationPermissionState = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
-    val location = weatherViewModel.location.value
+    val locationState = weatherViewModel.location.observeAsState()
 
-    LaunchedEffect(Unit) {
-        if (locationPermissionState.status == PermissionStatus.Granted) {
+    LaunchedEffect(locationPermissionState) {
+        if (locationPermissionState.status.isGranted) {
             weatherViewModel.fetchLocation()
         } else {
             locationPermissionState.launchPermissionRequest()
@@ -42,19 +44,17 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        location?.let {
-            Text(text = "Latitude: ${it.latitude}, Longitude: ${it.longitude}")
+        locationState.let {
+            Text(text = "Latitude: ${it.value?.latitude}, Longitude: ${it.value?.longitude}")
         } ?: Text(text = "Standort nicht verfügbar")
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { weatherViewModel.fetchLocation() }) {
+        Button(onClick = {
+            weatherViewModel.fetchLocation()
+        }) {
             Text(text = "Standort aktualisieren")
         }
-    }
-
-    Column {
-        Text(text = "Test")
     }
 }
 
