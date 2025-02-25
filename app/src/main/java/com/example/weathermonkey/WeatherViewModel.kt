@@ -28,12 +28,20 @@ class WeatherViewModel(
     fun fetchLocation() {
         val cancellationTokenSource = CancellationTokenSource()
         fusedLocationProviderClient.getCurrentLocation(
-            Priority.PRIORITY_BALANCED_POWER_ACCURACY,
+            Priority.PRIORITY_HIGH_ACCURACY,
             cancellationTokenSource.token
         ).addOnSuccessListener { location ->
-            _location.postValue(location)
+            if (location != null) {
+                _location.postValue(location)
+                println("Standort erfolgreich abgerufen: ${location.latitude}, ${location.longitude}")
+            } else {
+                _location.postValue(null)
+                println("Standort ist null!")
+            }
         }.addOnFailureListener {
             _location.postValue(null)
+            println("Standort konnte nicht abgerufen werden: ${it.message}")
         }
     }
+
 }
