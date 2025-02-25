@@ -8,6 +8,7 @@ import com.example.weathermonkey.data.local.LocationsDatabase
 import com.example.weathermonkey.data.remote.WeatherAPI
 import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryImpl
 import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryInterface
+import com.example.weathermonkey.data.repository.HistoryWeatherRepositoryMock
 import org.koin.core.module.dsl.viewModelOf
 
 
@@ -26,8 +27,11 @@ val appModule = module {
     }
 
     single<HistoryWeatherRepositoryInterface> {
+        //HistoryWeatherRepositoryMock(get())
         HistoryWeatherRepositoryImpl(get())
     }
+
+
 
     viewModelOf(::WeatherViewModel)
 }
