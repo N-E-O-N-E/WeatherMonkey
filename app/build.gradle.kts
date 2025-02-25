@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     //Navigation
     alias(libs.plugins.jetbrains.kotlin.serialization)
-
     //Room
     alias(libs.plugins.kotlin.ksp)
 }
@@ -100,4 +99,8 @@ dependencies {
     //Testing
     debugImplementation(libs.androidx.ui.test.manifest)
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    //GPS
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
 }

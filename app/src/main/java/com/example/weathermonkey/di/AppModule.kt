@@ -1,11 +1,9 @@
 package com.example.weathermonkey.di
 
 import com.example.weathermonkey.WeatherViewModel
-import com.example.weathermonkey.data.local.LocationsDao
 import com.example.weathermonkey.data.local.LocationsDatabase
 import com.example.weathermonkey.data.remote.WeatherAPI
 import com.example.weathermonkey.data.repository.WeatherRepositoryImpl
-import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
@@ -13,11 +11,11 @@ import org.koin.dsl.module
 
 val appModule = module {
 
-    single<LocationsDatabase> {
+    single {
         LocationsDatabase.getDatabase(androidContext())
     }
 
-    single<LocationsDao> {
+    single {
         get<LocationsDatabase>().dao()
     }
 
@@ -25,7 +23,7 @@ val appModule = module {
         WeatherAPI.retrofitService
     }
 
-    single<WeatherRepositoryInterface> {
+    single {
         //HistoryWeatherRepositoryMock(get())
         WeatherRepositoryImpl(get())
     }

@@ -1,5 +1,7 @@
+import androidx.room.Entity
 import com.squareup.moshi.Json
 
+@Entity
 data class WeatherModel(
     @Json(name = "latitude")
     val latitude: Double,
@@ -20,7 +22,7 @@ data class WeatherModel(
     @Json(name = "daily")
     val daily: Daily
 )
-
+@Entity
 data class DailyUnits(
     @Json(name = "time")
     val time: String,
@@ -29,7 +31,7 @@ data class DailyUnits(
     @Json(name = "temperature_2m_min")
     val temperature2mMin: String
 )
-
+@Entity
 data class Daily(
     @Json(name = "time")
     val time: List<String>,
