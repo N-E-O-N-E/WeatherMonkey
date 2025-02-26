@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -20,11 +19,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weathermonkey.data.repository.mockData.mockResponse
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
 fun WeeklyWeatherComposable(
@@ -33,17 +30,16 @@ fun WeeklyWeatherComposable(
 ) {
     Card(
         modifier = Modifier
-            .padding(8.dp)
-            .height(310.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.DarkGray.copy(alpha = 0.18f)
+            .padding(8.dp).height(310.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color.DarkGray.copy(alpha = 0.18f)
         )
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 10.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalAlignment = Alignment.Start
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(data.daily.time.size) { index ->
                 Row(
@@ -53,31 +49,21 @@ fun WeeklyWeatherComposable(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.width(100.dp),horizontalAlignment = Alignment.Start) {
-                        Text(
-                            text = data.daily.time.getOrNull(index) ?: "-",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White
-                        )
-                    }
-                    Column(modifier = Modifier.width(180.dp),horizontalAlignment = Alignment.Start) {
-
-                        Text(
-                            text = getWeatherDescriptionByCode(data.hourly.weatherCode.getOrNull(index)),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White,
-                            textAlign = TextAlign.Left
-                        )
-                    }
-                    Column(modifier = Modifier.width(65.dp),horizontalAlignment = Alignment.Start) {
-                        Text(
-                            text = "${
-                                data.daily.temperature2mMin.getOrNull(index)?.toInt()
-                            }°-${data.daily.temperature2mMax.getOrNull(index)?.toInt()}°",
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White
-                        )
-                    }
+                    Text(
+                        text = data.daily.time.getOrNull(index) ?: "-",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                    Text(
+                        text = getWeatherDescriptionByCode(data.hourly.weatherCode.getOrNull(index)),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
+                    Text(
+                        text = "${data.daily.temperature2mMin.getOrNull(index)?.toInt()}°-${data.daily.temperature2mMax.getOrNull(index)?.toInt()}°",
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = Color.White
+                    )
                 }
             }
         }
