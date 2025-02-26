@@ -2,7 +2,6 @@ package com.example.weathermonkey.ui.composables
 
 import WeatherModel
 import android.content.res.Configuration
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -12,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,18 +23,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weathermonkey.R
 import com.example.weathermonkey.data.repository.mockData.mockResponse
-import com.example.weathermonkey.ui.theme.fontColors
-import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
+import com.example.weathermonkey.utils.currentHourAsString
 
 @Composable
 fun CurrentWeatherComposable(
     modifier: Modifier = Modifier,
     data: WeatherModel
 ) {
-    Card(
-        modifier = Modifier.padding(6.dp).height(250.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.DarkGray.copy(alpha = 0.15f))
+    Surface(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .padding(horizontal = 10.dp),
+        color = Color.White.copy(alpha = 0.4f),
+        shape = RoundedCornerShape(10.dp)
     ) {
+
         Row(
             modifier = Modifier
                 .fillMaxSize()
@@ -54,8 +55,10 @@ fun CurrentWeatherComposable(
                 contentScale = ContentScale.FillHeight,
             )
 
+            Text(text = currentHourAsString.getCurrent())
+
             Text(
-                text = "${indexedTempForCurrentHourAsString.getCurrent()}°",
+                text = "${data.hourly.temperature2m}°",
                 color = Color.White,
                 fontSize = 100.sp
             )
