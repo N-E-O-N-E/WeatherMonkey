@@ -141,7 +141,10 @@ fun HomeScreen(
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
 
-                WeeklyWeatherComposable(data =  weatherData.let { it }?: mockResponse)
+                WeeklyWeatherComposable(
+                    data = weatherData ?: mockResponse,
+                    getWeatherDescriptionByCode = weatherViewModel::getWeatherDescriptionByCode
+                )
 
                 Card {
                     Column(
