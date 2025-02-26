@@ -81,9 +81,9 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.placeholderback),
+            painter = painterResource(id = R.drawable.sunimage),
             contentDescription = null,
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
 
