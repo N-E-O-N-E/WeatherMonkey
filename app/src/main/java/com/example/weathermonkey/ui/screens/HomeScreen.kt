@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -31,11 +30,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+<<<<<<< HEAD
+=======
+import androidx.compose.ui.draw.shadow
+>>>>>>> kai/main
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
@@ -90,7 +92,7 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.sunimage),
+            painter = painterResource(id = R.drawable.rainimage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
@@ -103,36 +105,55 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.Start
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            Card(
+                modifier = Modifier.padding(horizontal = 6.dp).padding(vertical = 10.dp).height(70.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.Black.copy(alpha = 0.11f))
+
             ) {
+<<<<<<< HEAD
                 Text(
                     text = "Dein Standort",
                     style = MaterialTheme.typography.headlineLarge,
                     color = Color.Black,
                 )
+=======
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+>>>>>>> kai/main
 
-                Row {
-                    IconButton(
-                        onClick = { updateLocation = !updateLocation }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Refresh,
-                            contentDescription = null
-                        )
-                    }
 
-                    IconButton(
-                        onClick = {}
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null
-                        )
+                    Text(
+                        text = "Dein Standort",
+                        style = MaterialTheme.typography.headlineLarge,
+                        color = Color.White
+                    )
+
+
+                    Row {
+                        IconButton(
+                            onClick = { updateLocation = !updateLocation }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        }
+
+                        IconButton(
+                            onClick = {}
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = null,
+                                tint = Color.White
+                            )
+                        }
                     }
                 }
             }
@@ -146,13 +167,21 @@ fun HomeScreen(
 
                 CurrentWeatherComposable(data = weatherData ?: mockResponse)
 
+<<<<<<< HEAD
                 Spacer(modifier = Modifier.height(16.dp))
+=======
+                Spacer(modifier = Modifier.height(10.dp))
+>>>>>>> kai/main
 
                 HourlyForecastRow(
                     data = weatherData.let { it } ?: mockResponse,
                     convertToIcon = weatherViewModel::getWeatherIconByCode
                 )
+<<<<<<< HEAD
                 Spacer(modifier = Modifier.height(16.dp))
+=======
+                Spacer(modifier = Modifier.height(10.dp))
+>>>>>>> kai/main
 
                 WeeklyWeatherComposable(
                     data = weatherData ?: mockResponse,
