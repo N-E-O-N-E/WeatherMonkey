@@ -2,6 +2,7 @@ package com.example.weathermonkey.data.repository
 
 import WeatherModel
 import com.example.weathermonkey.data.remote.APIService
+import com.example.weathermonkey.data.remote.WeatherResponse
 
 interface WeatherRepositoryInterface {
 
@@ -17,6 +18,7 @@ interface WeatherRepositoryInterface {
         start_date: String,
         end_date: String,
     ): WeatherModel
+
 }
 
 class WeatherRepositoryImpl(private val apiService: APIService) :

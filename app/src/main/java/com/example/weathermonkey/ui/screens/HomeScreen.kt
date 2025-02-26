@@ -34,6 +34,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
+import com.example.weathermonkey.data.repository.mockData.mockResponse
+import com.example.weathermonkey.ui.composables.WeeklyWeatherComposable
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -53,6 +55,7 @@ fun HomeScreen(
     val temperatureState by weatherViewModel.temperature.collectAsState()
     val weatherDescriptionState by weatherViewModel.weatherDescription.collectAsState()
     val precipitationProbabilityState by weatherViewModel.precipitationProbability.collectAsState()
+    val weatherData by weatherViewModel.weatherResponse.collectAsState()
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
@@ -135,6 +138,8 @@ fun HomeScreen(
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
 
+                WeeklyWeatherComposable(data =  weatherData.let { it }?: mockResponse)
+
                 Card {
                     Column(
                         modifier = Modifier.padding(16.dp),
@@ -172,6 +177,16 @@ fun HomeScreen(
 
                         Text(text = "Niederschlagswahrscheinlichkeit:")
                         precipitationProbabilityState?.let {
+                            Text(
+                                text = it,
+                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                            )
+                        } ?: Text(text = "Daten werden geladen...")
+                    }
+                }
+                Card {
+                    Column {
+                        weatherData?.hourly?.weatherCode.toString().let {
                             Text(
                                 text = it,
                                 style = androidx.compose.material3.MaterialTheme.typography.titleLarge

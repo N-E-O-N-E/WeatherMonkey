@@ -1,9 +1,11 @@
 package com.example.weathermonkey
 
+import WeatherModel
 import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import androidx.lifecycle.AndroidViewModel
+import com.example.weathermonkey.data.remote.WeatherResponse
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -36,13 +38,19 @@ class WeatherViewModel(
     private val _currentTemperature = MutableStateFlow<String?>(null)
     val currentTemperature: StateFlow<String?> = _currentTemperature.asStateFlow()
 
+    private val _weatherResponse = MutableStateFlow<WeatherModel?>(null)
+    val weatherResponse = _weatherResponse.asStateFlow()
+
+
+
     suspend fun fetchTemperatureByLocation(latitude: Double, longitude: Double) {
         try {
             val weatherData = weatherRepository.fetchCurrentWeatherData(
                 latitude = latitude,
                 longitude = longitude,
-                forecast_days = 1
+                forecast_days = 14
             )
+            _weatherResponse.value = weatherData
 
             val currentTemperature = weatherData.hourly.temperature2m.firstOrNull()
             _currentTemperature.value = currentTemperature?.let { "$it°C" } ?: "Keine Daten"
