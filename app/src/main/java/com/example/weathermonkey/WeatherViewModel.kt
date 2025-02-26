@@ -42,11 +42,9 @@ class WeatherViewModel(
                 _temperature.value = "Max: $temperatureMax°C, Min: $temperatureMin°C"
             } else {
                 _temperature.value = "Keine Temperaturdaten verfügbar"
-                println("Temperature data not available in API response")
             }
         } catch (e: Exception) {
             _temperature.value = "Fehler: ${e.message}"
-            println("Fehler beim Abrufen der Wetterdaten: ${e.message}")
         }
     }
 

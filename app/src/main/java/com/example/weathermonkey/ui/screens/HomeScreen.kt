@@ -33,10 +33,9 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     weatherViewModel: WeatherViewModel = koinViewModel()
 ) {
-
     val locationPermissionState = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val locationState = weatherViewModel.location.collectAsState()
-    var shouldFetchLocation by remember { mutableStateOf(false) }
+    var updateLocation by remember { mutableStateOf(false) }
     val temperatureState by weatherViewModel.temperature.collectAsState()
 
     LaunchedEffect(locationPermissionState) {
@@ -47,13 +46,13 @@ fun HomeScreen(
             locationPermissionState.launchPermissionRequest()
         }
     }
-    LaunchedEffect(shouldFetchLocation) {
-        if (shouldFetchLocation) {
+
+    LaunchedEffect(updateLocation) {
+        if (updateLocation) {
             weatherViewModel.fetchLocation()
-        } else {
-            println("LaunchedEffect: Standort wird nicht aktualisiert (false)")
         }
     }
+
     LaunchedEffect(locationState.value) {
         val location = locationState.value
         if (location != null) {
@@ -71,12 +70,12 @@ fun HomeScreen(
     ) {
         locationState.let {
             Text(text = "Latitude: ${it.value?.latitude}, Longitude: ${it.value?.longitude}")
-        } ?: Text(text = "Standort nicht verfügbar")
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            shouldFetchLocation = !shouldFetchLocation
+            updateLocation = !updateLocation
         }) {
             Text(text = "Standort aktualisieren")
         }
