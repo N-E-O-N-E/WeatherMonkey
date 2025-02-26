@@ -18,7 +18,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val appModule = module {
 
-    // API-Initialisierung ( Moshi, Retrofit(API-Service), WeatherAPI Object
     single {
         Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
@@ -35,7 +34,6 @@ val appModule = module {
         WeatherAPI
     }
 
-    // Datenbank-Initialisierung
     single<LocationsDatabase> {
         LocationsDatabase.getDatabase(androidContext())
     }
@@ -43,11 +41,9 @@ val appModule = module {
         get<LocationsDatabase>().dao()
     }
 
-    // Repository-Initialisierung
     single<WeatherRepositoryInterface> {
         WeatherRepositoryImpl(get())
     }
 
-    // ViewModel-Initialisierung
     viewModelOf(::WeatherViewModel)
 }

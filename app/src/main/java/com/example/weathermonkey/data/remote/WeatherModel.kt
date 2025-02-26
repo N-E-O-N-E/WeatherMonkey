@@ -22,7 +22,7 @@ data class WeatherModel(
     @Json(name = "daily")
     val daily: Daily
 )
-@Entity
+
 data class DailyUnits(
     @Json(name = "time")
     val time: String,
@@ -31,12 +31,12 @@ data class DailyUnits(
     @Json(name = "temperature_2m_min")
     val temperature2mMin: String
 )
-@Entity
+
 data class Daily(
     @Json(name = "time")
     val time: List<String>,
     @Json(name = "temperature_2m_max")
-    val temperature2mMax: List<Any?>,
+    val temperature2mMax: List<Double>,
     @Json(name = "temperature_2m_min")
-    val temperature2mMin: List<Any?>
+    val temperature2mMin: List<Double>
 )
