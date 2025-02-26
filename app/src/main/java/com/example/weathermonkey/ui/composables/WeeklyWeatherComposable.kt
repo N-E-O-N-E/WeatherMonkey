@@ -21,9 +21,6 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun WeeklyWeatherComposable(
       data: WeatherModel
-//    days: List<String>,
-//    weatherDescriptions: List<String>,
-//    temperatures: List<String>
 ) {
     Card(
         modifier = Modifier
