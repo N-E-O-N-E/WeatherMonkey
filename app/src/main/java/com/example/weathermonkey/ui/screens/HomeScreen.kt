@@ -19,6 +19,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,9 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
+import com.example.weathermonkey.ui.composables.HourlyForecastRow
 import com.example.weathermonkey.ui.composables.WeeklyWeatherComposable
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -106,7 +109,7 @@ fun HomeScreen(
             ) {
                 Text(
                     text = "Dein Standort",
-                    style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge
                 )
 
                 Row {
@@ -149,7 +152,7 @@ fun HomeScreen(
                         currentTemperatureState?.let {
                             Text(
                                 text = it,
-                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge
                             )
                         } ?: Text(text = "Daten werden geladen...")
 
@@ -159,7 +162,7 @@ fun HomeScreen(
                         weatherDescriptionState?.let {
                             Text(
                                 text = it,
-                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge
                             )
                         } ?: Text(text = "Daten werden geladen...")
 
@@ -169,7 +172,7 @@ fun HomeScreen(
                         temperatureState?.let {
                             Text(
                                 text = it,
-                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge
                             )
                         } ?: Text(text = "Daten werden geladen...")
 
@@ -179,7 +182,7 @@ fun HomeScreen(
                         precipitationProbabilityState?.let {
                             Text(
                                 text = it,
-                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge
                             )
                         } ?: Text(text = "Daten werden geladen...")
                     }
@@ -189,12 +192,16 @@ fun HomeScreen(
                         weatherData?.hourly?.weatherCode.toString().let {
                             Text(
                                 text = it,
-                                style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                                style = MaterialTheme.typography.titleLarge
                             )
                         } ?: Text(text = "Daten werden geladen...")
                     }
                 }
             }
         }
+        HourlyForecastRow(
+            data = weatherData.let { it } ?: mockResponse,
+            convertToIcon = weatherViewModel::getWeatherIconByCode
+        )
     }
 }
