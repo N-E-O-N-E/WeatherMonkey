@@ -49,11 +49,7 @@ fun CurrentWeatherComposable(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(10.dp),
-<<<<<<< HEAD
                 painter = painterResource(id = R.drawable.sunicon),
-=======
-                painter = painterResource(id = R.drawable.rainicon),
->>>>>>> kai/main
                 contentDescription = "",
                 contentScale = ContentScale.FillHeight,
             )

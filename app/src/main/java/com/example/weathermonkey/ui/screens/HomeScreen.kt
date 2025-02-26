@@ -30,10 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-<<<<<<< HEAD
-=======
 import androidx.compose.ui.draw.shadow
->>>>>>> kai/main
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -110,13 +107,6 @@ fun HomeScreen(
                 colors = CardDefaults.cardColors(containerColor = Color.Black.copy(alpha = 0.11f))
 
             ) {
-<<<<<<< HEAD
-                Text(
-                    text = "Dein Standort",
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = Color.Black,
-                )
-=======
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -124,7 +114,6 @@ fun HomeScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
->>>>>>> kai/main
 
 
                     Text(
@@ -167,21 +156,13 @@ fun HomeScreen(
 
                 CurrentWeatherComposable(data = weatherData ?: mockResponse)
 
-<<<<<<< HEAD
-                Spacer(modifier = Modifier.height(16.dp))
-=======
                 Spacer(modifier = Modifier.height(10.dp))
->>>>>>> kai/main
 
                 HourlyForecastRow(
                     data = weatherData.let { it } ?: mockResponse,
                     convertToIcon = weatherViewModel::getWeatherIconByCode
                 )
-<<<<<<< HEAD
-                Spacer(modifier = Modifier.height(16.dp))
-=======
                 Spacer(modifier = Modifier.height(10.dp))
->>>>>>> kai/main
 
                 WeeklyWeatherComposable(
                     data = weatherData ?: mockResponse,

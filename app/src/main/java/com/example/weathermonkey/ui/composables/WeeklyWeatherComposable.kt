@@ -33,15 +33,9 @@ fun WeeklyWeatherComposable(
 ) {
     Card(
         modifier = Modifier
-<<<<<<< HEAD
-            .padding(8.dp).height(310.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.DarkGray.copy(alpha = 0.18f)
-=======
             .padding(8.dp)
             .height(310.dp),
         colors = CardDefaults.cardColors(containerColor = Color.DarkGray.copy(alpha = 0.18f)
->>>>>>> kai/main
         )
     ) {
         LazyColumn(
@@ -59,23 +53,6 @@ fun WeeklyWeatherComposable(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-<<<<<<< HEAD
-                    Text(
-                        text = data.daily.time.getOrNull(index) ?: "-",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
-                    )
-                    Text(
-                        text = getWeatherDescriptionByCode(data.hourly.weatherCode.getOrNull(index)),
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "${data.daily.temperature2mMin.getOrNull(index)?.toInt()}°-${data.daily.temperature2mMax.getOrNull(index)?.toInt()}°",
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color.White
-                    )
-=======
                     Column(modifier = Modifier.width(100.dp),horizontalAlignment = Alignment.Start) {
                         Text(
                             text = data.daily.time.getOrNull(index) ?: "-",
@@ -101,7 +78,6 @@ fun WeeklyWeatherComposable(
                             color = Color.White
                         )
                     }
->>>>>>> kai/main
                 }
             }
         }
