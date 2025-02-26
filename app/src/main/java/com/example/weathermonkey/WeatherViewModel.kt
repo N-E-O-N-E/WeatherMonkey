@@ -48,6 +48,7 @@ class WeatherViewModel(
         }
     }
 
+//TODO: locationRepository
     @SuppressLint("MissingPermission")
     fun fetchLocation() {
         val cancellationTokenSource = CancellationTokenSource()

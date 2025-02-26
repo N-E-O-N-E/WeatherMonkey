@@ -1,7 +1,7 @@
 package com.example.weathermonkey.data.repository
 
 import WeatherModel
-import com.example.weathermonkey.data.remote.WeatherAPI
+import com.example.weathermonkey.data.remote.APIService
 
 interface WeatherRepositoryInterface {
 
@@ -19,7 +19,7 @@ interface WeatherRepositoryInterface {
     ): WeatherModel
 }
 
-class WeatherRepositoryImpl(private val apiService: WeatherAPI) :
+class WeatherRepositoryImpl(private val apiService: APIService) :
     WeatherRepositoryInterface {
 
     override suspend fun fetchCurrentWeatherData(
@@ -27,7 +27,7 @@ class WeatherRepositoryImpl(private val apiService: WeatherAPI) :
         longitude: Double,
         forecast_days: Int
     ): WeatherModel {
-        return apiService.retrofitService.getCurrentWeatherData(
+        return apiService.getCurrentWeatherData(
             latitude = latitude,
             longitude = longitude,
             forecast_days = forecast_days
@@ -40,7 +40,7 @@ class WeatherRepositoryImpl(private val apiService: WeatherAPI) :
         start_date: String,
         end_date: String
     ): WeatherModel {
-        return apiService.retrofitService.getWeatherData(
+        return apiService.getWeatherData(
             latitude = latitude,
             longitude = longitude,
             start_date = start_date,
