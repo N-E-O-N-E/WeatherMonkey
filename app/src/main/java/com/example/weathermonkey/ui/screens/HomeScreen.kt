@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -30,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -37,6 +39,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
+import com.example.weathermonkey.ui.composables.CurrentWeatherComposable
 import com.example.weathermonkey.ui.composables.HourlyForecastRow
 import com.example.weathermonkey.ui.composables.WeeklyWeatherComposable
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
@@ -109,7 +112,8 @@ fun HomeScreen(
             ) {
                 Text(
                     text = "Dein Standort",
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = Color.Black,
                 )
 
                 Row {
@@ -139,6 +143,15 @@ fun HomeScreen(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                CurrentWeatherComposable(data = weatherData ?: mockResponse)
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HourlyForecastRow(
+                    data = weatherData.let { it } ?: mockResponse,
+                    convertToIcon = weatherViewModel::getWeatherIconByCode
+                )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 WeeklyWeatherComposable(
@@ -146,65 +159,8 @@ fun HomeScreen(
                     getWeatherDescriptionByCode = weatherViewModel::getWeatherDescriptionByCode
                 )
 
-                Card {
-                    Column(
-                        modifier = Modifier.padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(text = "Aktuelle Temperatur:")
-                        currentTemperatureState?.let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        } ?: Text(text = "Daten werden geladen...")
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(text = "Wetterbeschreibung:")
-                        weatherDescriptionState?.let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        } ?: Text(text = "Daten werden geladen...")
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(text = "Höchst- und Tiefsttemperaturen:")
-                        temperatureState?.let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        } ?: Text(text = "Daten werden geladen...")
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        Text(text = "Niederschlagswahrscheinlichkeit:")
-                        precipitationProbabilityState?.let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        } ?: Text(text = "Daten werden geladen...")
-                    }
-                }
-                Card {
-                    Column {
-                        weatherData?.hourly?.weatherCode.toString().let {
-                            Text(
-                                text = it,
-                                style = MaterialTheme.typography.titleLarge
-                            )
-                        } ?: Text(text = "Daten werden geladen...")
-                    }
-                }
+                Spacer(modifier = Modifier.fillMaxHeight())
             }
         }
-        HourlyForecastRow(
-            data = weatherData.let { it } ?: mockResponse,
-            convertToIcon = weatherViewModel::getWeatherIconByCode
-        )
     }
 }

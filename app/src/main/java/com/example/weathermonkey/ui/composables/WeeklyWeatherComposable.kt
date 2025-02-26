@@ -5,8 +5,10 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
@@ -28,10 +30,9 @@ fun WeeklyWeatherComposable(
 ) {
     Card(
         modifier = Modifier
-            .padding(8.dp),
-        border = BorderStroke(1.dp, Color.White),
+            .padding(8.dp).height(310.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent
+            containerColor = Color.DarkGray.copy(alpha = 0.18f)
         )
     ) {
         LazyColumn(
@@ -51,17 +52,17 @@ fun WeeklyWeatherComposable(
                     Text(
                         text = data.daily.time.getOrNull(index) ?: "-",
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
+                        color = Color.White
                     )
                     Text(
                         text = getWeatherDescriptionByCode(data.hourly.weatherCode.getOrNull(index)),
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
+                        color = Color.White
                     )
                     Text(
                         text = "${data.daily.temperature2mMin.getOrNull(index)?.toInt()}°-${data.daily.temperature2mMax.getOrNull(index)?.toInt()}°",
                         style = MaterialTheme.typography.bodyLarge,
-                        color = Color.Black
+                        color = Color.White
                     )
                 }
             }
