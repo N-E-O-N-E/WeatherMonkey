@@ -27,6 +27,13 @@ class WeatherViewModel(
     private val _temperature = MutableStateFlow<String?>(null)
     val temperature: StateFlow<String?> = _temperature.asStateFlow()
 
+    private val _weatherDescription = MutableStateFlow<String?>(null)
+    val weatherDescription: StateFlow<String?> = _weatherDescription.asStateFlow()
+
+    private val _precipitationProbability = MutableStateFlow<String?>(null)
+    val precipitationProbability: StateFlow<String?> = _precipitationProbability.asStateFlow()
+
+
     suspend fun fetchTemperatureByLocation(latitude: Double, longitude: Double) {
         try {
             val weatherData = weatherRepository.fetchCurrentWeatherData(
@@ -43,8 +50,17 @@ class WeatherViewModel(
             } else {
                 _temperature.value = "Keine Temperaturdaten verfügbar"
             }
+
+            val weatherCode = weatherData.hourly.weatherCode.firstOrNull()
+            _weatherDescription.value = getWeatherDescriptionByCode(weatherCode)
+
+            val precipitation = weatherData.hourly.precipitationProbability.firstOrNull()
+            _precipitationProbability.value = "Niederschlagswahrscheinlichkeit: ${precipitation ?: 0}%"
+
         } catch (e: Exception) {
             _temperature.value = "Fehler: ${e.message}"
+            _weatherDescription.value = "Fehler: ${e.message}"
+            _precipitationProbability.value = "Fehler: ${e.message}"
         }
     }
 
@@ -59,6 +75,23 @@ class WeatherViewModel(
             _location.value = location
         }.addOnFailureListener {
             _location.value = null
+        }
+    }
+
+    fun getWeatherDescriptionByCode(code: Int?): String {
+        return when (code) {
+            0 -> "Sonnig"
+            1, 2, 3 -> "Überwiegend sonnig"
+            45, 48 -> "Nebel"
+            51, 53, 55 -> "Leichter Nieselregen"
+            61, 63, 65 -> "Regen"
+            66, 67 -> "Gefrierender Regen"
+            71, 73, 75 -> "Schnee"
+            80, 81, 82 -> "Schauer"
+            85, 86 -> "Schneeschauer"
+            95 -> "Gewitter"
+            96, 99 -> "Gewitter mit Hagel"
+            else -> "Wetterlage unbekannt"
         }
     }
 }

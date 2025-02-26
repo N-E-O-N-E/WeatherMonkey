@@ -1,7 +1,9 @@
 package com.example.weathermonkey.ui.screens
 
 import android.Manifest
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +22,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
@@ -37,6 +42,8 @@ fun HomeScreen(
     val locationState = weatherViewModel.location.collectAsState()
     var updateLocation by remember { mutableStateOf(false) }
     val temperatureState by weatherViewModel.temperature.collectAsState()
+    val weatherDescriptionState by weatherViewModel.weatherDescription.collectAsState()
+    val precipitationProbabilityState by weatherViewModel.precipitationProbability.collectAsState()
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
@@ -46,13 +53,11 @@ fun HomeScreen(
             locationPermissionState.launchPermissionRequest()
         }
     }
-
     LaunchedEffect(updateLocation) {
         if (updateLocation) {
             weatherViewModel.fetchLocation()
         }
     }
-
     LaunchedEffect(locationState.value) {
         val location = locationState.value
         if (location != null) {
@@ -63,40 +68,71 @@ fun HomeScreen(
         }
     }
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        locationState.let {
-            Text(text = "Latitude: ${it.value?.latitude}, Longitude: ${it.value?.longitude}")
-        }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = R.drawable.placeholderback),
+            contentDescription = null,
+            contentScale = ContentScale.Fit,
+            modifier = Modifier.fillMaxSize()
+        )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(onClick = {
-            updateLocation = !updateLocation
-        }) {
-            Text(text = "Standort aktualisieren")
-        }
-
-        Card(
-            elevation = CardDefaults.cardElevation(8.dp)
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+/*            locationState.let {
+                Text(text = "Latitude: ${it.value?.latitude}, Longitude: ${it.value?.longitude}")
+            }
+            */
+
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Button(onClick = {
+                updateLocation = !updateLocation
+            }) {
+                Text(text = "Standort aktualisieren")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Card(
             ) {
-                Text(text = "Aktuelle Temperatur:")
-                temperatureState?.let {
-                    Text(
-                        text = it,
-                        style = androidx.compose.material3.MaterialTheme.typography.titleLarge
-                    )
-                } ?: Text(text = "Daten werden geladen...")
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = "Aktuelle Temperatur:")
+                    temperatureState?.let {
+                        Text(
+                            text = it,
+                            style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                        )
+                    } ?: Text(text = "Daten werden geladen...")
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(text = "Wetterbeschreibung:")
+                    weatherDescriptionState?.let {
+                        Text(
+                            text = it,
+                            style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                        )
+                    } ?: Text(text = "Daten werden geladen...")
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(text = "Niederschlagswahrscheinlichkeit:")
+                    precipitationProbabilityState?.let {
+                        Text(
+                            text = it,
+                            style = androidx.compose.material3.MaterialTheme.typography.titleLarge
+                        )
+                    } ?: Text(text = "Daten werden geladen...")
+                }
             }
         }
     }
+
 }
-
-
