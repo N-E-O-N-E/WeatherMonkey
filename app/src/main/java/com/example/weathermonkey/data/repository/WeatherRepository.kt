@@ -2,7 +2,6 @@ package com.example.weathermonkey.data.repository
 
 import WeatherModel
 import com.example.weathermonkey.data.remote.WeatherAPI
-import com.example.weathermonkey.data.remote.WeatherResponse
 
 interface WeatherRepositoryInterface {
 

@@ -1,6 +1,5 @@
 package com.example.weathermonkey.data.local
 
-import WeatherModel
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
