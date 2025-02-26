@@ -2,6 +2,8 @@ package com.example.weathermonkey.data.repository
 
 import Daily
 import DailyUnits
+import Hourly
+import HourlyUnits
 import WeatherModel
 import com.example.weathermonkey.data.remote.WeatherAPI
 
@@ -29,6 +31,32 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 time = listOf("2025-02-24"),
                 temperature2mMax = listOf(6.5),
                 temperature2mMin = listOf(6.3)
+            ),
+            hourlyUnits = HourlyUnits(
+                time = "iso8601",
+                temperature2m = "°C",
+                apparentTemperature = "°C",
+                precipitationProbability = "%",
+                rain = "mm",
+                showers = "mm",
+                snowfall = "cm",
+                weatherCode = "wmo code",
+                cloudCoverLow = "%",
+                cloudCoverMid = "%",
+                cloudCoverHigh = "%"
+            ),
+            hourly = Hourly(
+                time = listOf("2025-02-24T00:00", "2025-02-24T01:00"),
+                temperature2m = listOf(6.5, 6.3),
+                apparentTemperature = listOf(5.0, 5.2),
+                precipitationProbability = listOf(20, 15),
+                rain = listOf(0.0, 0.1),
+                showers = listOf(0.0, 0.0),
+                snowfall = listOf(0.0, 0.0),
+                weatherCode = listOf(3, 2),
+                cloudCoverLow = listOf(50, 60),
+                cloudCoverMid = listOf(70, 80),
+                cloudCoverHigh = listOf(90, 100)
             )
         )
         return result
@@ -57,6 +85,32 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 time = listOf("2025-02-24"),
                 temperature2mMax = listOf(6.5),
                 temperature2mMin = listOf(6.3)
+            ),
+            hourlyUnits = HourlyUnits(
+                time = "iso8601",
+                temperature2m = "°C",
+                apparentTemperature = "°C",
+                precipitationProbability = "%",
+                rain = "mm",
+                showers = "mm",
+                snowfall = "cm",
+                weatherCode = "wmo code",
+                cloudCoverLow = "%",
+                cloudCoverMid = "%",
+                cloudCoverHigh = "%"
+            ),
+            hourly = Hourly(
+                time = listOf("2025-02-24T00:00", "2025-02-24T01:00"),
+                temperature2m = listOf(6.5, 6.3),
+                apparentTemperature = listOf(5.0, 5.2),
+                precipitationProbability = listOf(20, 15),
+                rain = listOf(0.0, 0.1),
+                showers = listOf(0.0, 0.0),
+                snowfall = listOf(0.0, 0.0),
+                weatherCode = listOf(3, 2),
+                cloudCoverLow = listOf(50, 60),
+                cloudCoverMid = listOf(70, 80),
+                cloudCoverHigh = listOf(90, 100)
             )
         )
         return result
