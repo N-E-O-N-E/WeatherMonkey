@@ -33,6 +33,8 @@ class WeatherViewModel(
     private val _precipitationProbability = MutableStateFlow<String?>(null)
     val precipitationProbability: StateFlow<String?> = _precipitationProbability.asStateFlow()
 
+    private val _currentTemperature = MutableStateFlow<String?>(null)
+    val currentTemperature: StateFlow<String?> = _currentTemperature.asStateFlow()
 
     suspend fun fetchTemperatureByLocation(latitude: Double, longitude: Double) {
         try {
@@ -41,6 +43,9 @@ class WeatherViewModel(
                 longitude = longitude,
                 forecast_days = 1
             )
+
+            val currentTemperature = weatherData.hourly.temperature2m.firstOrNull()
+            _currentTemperature.value = currentTemperature?.let { "$it°C" } ?: "Keine Daten"
 
             val temperatureMax = weatherData.daily.temperature2mMax.firstOrNull()
             val temperatureMin = weatherData.daily.temperature2mMin.firstOrNull()
@@ -55,7 +60,7 @@ class WeatherViewModel(
             _weatherDescription.value = getWeatherDescriptionByCode(weatherCode)
 
             val precipitation = weatherData.hourly.precipitationProbability.firstOrNull()
-            _precipitationProbability.value = "Niederschlagswahrscheinlichkeit: ${precipitation ?: 0}%"
+            _precipitationProbability.value = "${precipitation ?: 0}%"
 
         } catch (e: Exception) {
             _temperature.value = "Fehler: ${e.message}"
