@@ -112,16 +112,16 @@ class WeatherViewModel(
         return when (code) {
             0 -> R.drawable.suniconsmall
             1, 2, 3 -> R.drawable.cloudiconsmall
-            45, 48 -> R.drawable.rainiconsmall
+            45, 48 -> R.drawable.fogiconsmall
             51, 53, 55 -> R.drawable.rainiconsmall
             61, 63, 65 -> R.drawable.rainiconsmall
             66, 67 -> R.drawable.snowiconsmall
             71, 73, 75 -> R.drawable.snowiconsmall
             80, 81, 82 -> R.drawable.rainiconsmall
             85, 86 -> R.drawable.snowiconsmall
-            95 -> R.drawable.rainiconsmall
-            96, 99 -> R.drawable.rainiconsmall
-            else -> R.drawable.rainiconsmall
+            95 -> R.drawable.thundericonsmall
+            96, 99 -> R.drawable.thundericonsmall
+            else -> R.drawable.cloudiconsmall
         }
     }
 }
