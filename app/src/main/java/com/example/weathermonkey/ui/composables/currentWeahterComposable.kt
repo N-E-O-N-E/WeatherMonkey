@@ -31,7 +31,7 @@ import java.util.Calendar
 fun CurrentWeatherComposable(
     modifier: Modifier = Modifier,
     data: WeatherModel,
-    getWeatherIconXLByCode: (Int?) -> Int,
+    getWeatherIconXLByCode: (Int?, Int) -> Int,
     dayState: Int?
 ) {
     val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -55,7 +55,7 @@ fun CurrentWeatherComposable(
                 modifier = Modifier
                     .padding(30.dp)
                     .scale(1.7f),
-                painter = painterResource(id = getWeatherIconXLByCode(data.daily.weatherCode.firstOrNull())),
+                painter = painterResource(id = getWeatherIconXLByCode(data.daily.weatherCode.firstOrNull(), dayState ?: 0)),
                 contentDescription = "",
             )
 
@@ -83,7 +83,7 @@ fun CurrentWeatherComposable(
 @Composable
 private fun CurrentWeatherComposablePreview() {
     CurrentWeatherComposable(
-        data = mockResponse, getWeatherIconXLByCode = { code ->
+        data = mockResponse, getWeatherIconXLByCode = { code, _ ->
             when (code) {
                 0 -> R.drawable.sunicon
                 1, 2, 3 -> R.drawable.cloudicon
