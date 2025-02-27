@@ -94,5 +94,9 @@ data class Daily(
     @Json(name = "temperature_2m_min")
     val temperature2mMin: List<Double>,
     @Json(name = "weather_code")
-    val weatherCode: List<Int>
+    val weatherCode: List<Int>,
+    @Json(name = "sunrise")
+    val sunrise: List<String>,
+    @Json(name = "sunset")
+    val sunset: List<String>
 )

@@ -35,7 +35,7 @@ interface APIService {
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("forecast_days") forecast_days: Int,
-        @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min,weather_code",
+        @Query("daily") daily: String = "temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset",
         @Query("hourly") hourly: String = "temperature_2m,apparent_temperature,precipitation_probability,rain,showers,snowfall,weather_code,cloud_cover_low,cloud_cover_mid,cloud_cover_high",
         @Query("timezone") timezone: String = "auto"
     ): WeatherModel
