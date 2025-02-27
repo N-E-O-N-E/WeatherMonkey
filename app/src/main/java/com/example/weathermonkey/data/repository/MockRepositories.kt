@@ -46,7 +46,8 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 weatherCode = "wmo code",
                 cloudCoverLow = "%",
                 cloudCoverMid = "%",
-                cloudCoverHigh = "%"
+                cloudCoverHigh = "%",
+                isDay = "isDay"
             ),
             hourly = Hourly(
                 time = listOf("2025-02-24T00:00", "2025-02-24T01:00"),
@@ -59,7 +60,8 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 weatherCode = listOf(3, 2),
                 cloudCoverLow = listOf(50, 60),
                 cloudCoverMid = listOf(70, 80),
-                cloudCoverHigh = listOf(90, 100)
+                cloudCoverHigh = listOf(90, 100),
+                isDay = listOf(0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,)
             )
         )
         return result
@@ -103,7 +105,8 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 weatherCode = "wmo code",
                 cloudCoverLow = "%",
                 cloudCoverMid = "%",
-                cloudCoverHigh = "%"
+                cloudCoverHigh = "%",
+                isDay = "isDay"
             ),
             hourly = Hourly(
                 time = listOf("2025-02-24T00:00", "2025-02-24T01:00"),
@@ -116,7 +119,8 @@ class WeatherRepositoryMock(private val apiService: WeatherAPI) :
                 weatherCode = listOf(3, 2),
                 cloudCoverLow = listOf(50, 60),
                 cloudCoverMid = listOf(70, 80),
-                cloudCoverHigh = listOf(90, 100)
+                cloudCoverHigh = listOf(90, 100),
+                isDay = listOf(0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,)
             )
         )
         return result

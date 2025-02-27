@@ -27,12 +27,12 @@ class WeatherRepositoryImpl(private val apiService: APIService) :
     override suspend fun fetchCurrentWeatherData(
         latitude: Double,
         longitude: Double,
-        forecast_days: Int
+        forecast_days: Int,
     ): WeatherModel {
         return apiService.getCurrentWeatherData(
             latitude = latitude,
             longitude = longitude,
-            forecast_days = forecast_days
+            forecast_days = forecast_days,
         )
     }
 

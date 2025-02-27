@@ -49,7 +49,9 @@ data class HourlyUnits(
     @Json(name = "cloud_cover_mid")
     val cloudCoverMid: String,
     @Json(name = "cloud_cover_high")
-    val cloudCoverHigh: String
+    val cloudCoverHigh: String,
+    @Json(name = "is_day")
+    val isDay: String
 )
 
 data class Hourly(
@@ -74,7 +76,9 @@ data class Hourly(
     @Json(name = "cloud_cover_mid")
     val cloudCoverMid: List<Int>,
     @Json(name = "cloud_cover_high")
-    val cloudCoverHigh: List<Int>
+    val cloudCoverHigh: List<Int>,
+    @Json(name = "is_day")
+    val isDay: List<Int>
 )
 
 data class DailyUnits(
