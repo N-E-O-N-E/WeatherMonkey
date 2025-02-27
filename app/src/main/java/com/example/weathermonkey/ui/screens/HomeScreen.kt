@@ -153,7 +153,10 @@ fun HomeScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                CurrentWeatherComposable(data = weatherData ?: mockResponse)
+                CurrentWeatherComposable(
+                    data = weatherData ?: mockResponse,
+                    getWeatherIconXLByCode = weatherViewModel::getWeatherIconXLByCode
+                )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
