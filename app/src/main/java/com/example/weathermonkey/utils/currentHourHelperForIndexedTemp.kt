@@ -22,4 +22,12 @@ object indexedTempForCurrentHourAsString {
 
         return data.hourly.weatherCode.getOrNull(index) ?: 0
     }
+
+    fun getCurrentIsDayAsInt(data: WeatherModel): Int {
+        val currentHourPattern: DateTimeFormatter? = DateTimeFormatter.ofPattern("H")
+        val currentHour = LocalTime.now().format(currentHourPattern)
+        val index = currentHour.toInt()
+
+        return data.hourly.isDay.getOrNull(index) ?: 0
+    }
 }

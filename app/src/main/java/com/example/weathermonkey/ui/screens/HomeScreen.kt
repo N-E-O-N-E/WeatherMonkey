@@ -1,6 +1,7 @@
 package com.example.weathermonkey.ui.screens
 
 import android.Manifest
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -56,6 +57,12 @@ fun HomeScreen(
     var updateLocation by remember { mutableStateOf(false) }
     val weatherData by weatherViewModel.weatherResponseForecast.collectAsState()
     val weatherDataDaily by weatherViewModel.weatherResponseDaily.collectAsState()
+
+    var test = weatherData?.let { data ->
+        indexedTempForCurrentHourAsString.getCurrentIsDayAsInt(data)
+    }
+    Log.d("isDay", "test: $test")
+
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
