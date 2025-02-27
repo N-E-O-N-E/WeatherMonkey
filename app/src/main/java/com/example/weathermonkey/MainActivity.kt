@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.example.weathermonkey.navigation.AppNavigation
 import com.example.weathermonkey.ui.screens.HomeScreen
 import com.example.weathermonkey.ui.theme.WeatherMonkeyTheme
 
@@ -17,9 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             WeatherMonkeyTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(modifier = Modifier.padding(innerPadding))
-                }
+                AppNavigation()
             }
         }
     }
