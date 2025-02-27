@@ -5,9 +5,13 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 object indexedTempForCurrentHourAsString {
-    fun getCurrent(): String {
-        val currentHourPattern: DateTimeFormatter? = DateTimeFormatter.ofPattern("HH")
+
+    fun getCurrent(data: WeatherModel): String {
+        val currentHourPattern: DateTimeFormatter? = DateTimeFormatter.ofPattern("H")
         val currentHour = LocalTime.now().format(currentHourPattern)
-        return currentHour
+        val index = currentHour.toInt()
+
+        return "${data.hourly.temperature2m.getOrNull(index) ?: "N/A"}°"
+
     }
 }
