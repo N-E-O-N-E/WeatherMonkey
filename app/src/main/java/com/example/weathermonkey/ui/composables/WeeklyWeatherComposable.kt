@@ -37,7 +37,7 @@ fun WeeklyWeatherComposable(
     Card(
         modifier = Modifier
             .padding(8.dp)
-            .height(310.dp),
+            .height(250.dp),
         colors = CardDefaults.cardColors(containerColor = Color.DarkGray.copy(alpha = 0.18f)
         )
     ) {

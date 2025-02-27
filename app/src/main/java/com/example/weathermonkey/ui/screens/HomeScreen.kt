@@ -102,7 +102,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.Start
         ) {
             Card(
-                modifier = Modifier.padding(horizontal = 6.dp).padding(vertical = 10.dp).height(70.dp),
+                modifier = Modifier.padding(horizontal = 6.dp).padding(vertical = 5.dp).height(70.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.Black.copy(alpha = 0.11f))
 
             ) {
@@ -158,13 +158,10 @@ fun HomeScreen(
                     getWeatherIconXLByCode = weatherViewModel::getWeatherIconXLByCode
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
-
                 HourlyForecastRow(
                     data = weatherDataDaily ?: mockResponse,
                     convertToIcon = weatherViewModel::getWeatherIconByCode
                 )
-                Spacer(modifier = Modifier.height(10.dp))
 
                 WeeklyWeatherComposable(
                     data = weatherData ?: mockResponse,
