@@ -23,7 +23,7 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
     val sunPosition = currentHour / 24f
 
     val isDayTime = dayState == 1
-    val sunColor = if (isDayTime) Color.Yellow else Color(0xFF23293B)
+    val sunColor = if (isDayTime) Color.Yellow else Color(0xFF88ACCB)
 
     Canvas(
         modifier = modifier.background(color = Color.Transparent)
