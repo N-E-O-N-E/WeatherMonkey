@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -31,7 +32,7 @@ fun AppNavigation() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar(
-             containerColor = Color.Black.copy(alpha = 0.15f)
+                containerColor = Color.White.copy(alpha = 0.05f)
             ) {
                 NavModel.entries.forEach { item ->
                     NavigationBarItem(
@@ -46,9 +47,20 @@ fun AppNavigation() {
                             }
                         },
                         icon = {
-                            Icon(painter = painterResource(id = item.icon), item.label)
+                            Icon(
+                                painter = painterResource(id = item.icon),
+                                item.label,
+                                modifier = Modifier.scale(1.4f),
+                                tint = Color.White
+                            )
                         },
-                        label = { Text(item.label) })
+                        label = {
+                            Text(
+                                text = item.label,
+                                color = Color.White
+                            )
+                        }
+                    )
                 }
             }
         }
@@ -59,10 +71,10 @@ fun AppNavigation() {
         ) {
 
             composable<HomeView> {
-                HomeScreen(modifier = Modifier.padding(innerPadding),)
+                HomeScreen(modifier = Modifier.padding(innerPadding))
             }
             composable<HistoryView> {
-                HistoryScreen()
+                HistoryScreen(modifier = Modifier.padding(innerPadding))
             }
         }
     }

@@ -20,9 +20,9 @@ fun HistoryScreen(
         modifier = Modifier.fillMaxSize()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.sunimage),
+            painter = painterResource(id = R.drawable.snowimage),
             contentDescription = null,
-            contentScale = ContentScale.Fit,
+            contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
     }
