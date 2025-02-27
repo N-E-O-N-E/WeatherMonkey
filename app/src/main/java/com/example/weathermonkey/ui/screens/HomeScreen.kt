@@ -30,7 +30,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -55,12 +54,8 @@ fun HomeScreen(
     val locationPermissionState = rememberPermissionState(Manifest.permission.ACCESS_FINE_LOCATION)
     val locationState = weatherViewModel.location.collectAsState()
     var updateLocation by remember { mutableStateOf(false) }
-
-    val currentTemperatureState by weatherViewModel.currentTemperature.collectAsState()
-    val temperatureState by weatherViewModel.temperature.collectAsState()
-    val weatherDescriptionState by weatherViewModel.weatherDescription.collectAsState()
-    val precipitationProbabilityState by weatherViewModel.precipitationProbability.collectAsState()
-    val weatherData by weatherViewModel.weatherResponse.collectAsState()
+    val weatherData by weatherViewModel.weatherResponseForecast.collectAsState()
+    val weatherDataDaily by weatherViewModel.weatherResponseDaily.collectAsState()
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
@@ -78,7 +73,11 @@ fun HomeScreen(
     LaunchedEffect(locationState.value) {
         val location = locationState.value
         if (location != null) {
-            weatherViewModel.fetchTemperatureByLocation(
+            weatherViewModel.fetchWeatherResponseDaily(
+                latitude = location.latitude,
+                longitude = location.longitude
+            )
+            weatherViewModel.fetchWeatherResponseForecast(
                 latitude = location.latitude,
                 longitude = location.longitude
             )
@@ -159,7 +158,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 HourlyForecastRow(
-                    data = weatherData.let { it } ?: mockResponse,
+                    data = weatherDataDaily ?: mockResponse,
                     convertToIcon = weatherViewModel::getWeatherIconByCode
                 )
                 Spacer(modifier = Modifier.height(10.dp))

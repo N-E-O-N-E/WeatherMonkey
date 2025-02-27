@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import androidx.lifecycle.AndroidViewModel
-import com.example.weathermonkey.data.remote.WeatherResponse
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -26,58 +25,42 @@ class WeatherViewModel(
     private val _location = MutableStateFlow<Location?>(null)
     val location: StateFlow<Location?> = _location.asStateFlow()
 
-    private val _temperature = MutableStateFlow<String?>(null)
-    val temperature: StateFlow<String?> = _temperature.asStateFlow()
+    private val _weatherResponseForecast = MutableStateFlow<WeatherModel?>(null)
+    val weatherResponseForecast = _weatherResponseForecast.asStateFlow()
 
-    private val _weatherDescription = MutableStateFlow<String?>(null)
-    val weatherDescription: StateFlow<String?> = _weatherDescription.asStateFlow()
+    private val _weatherResponseDaily = MutableStateFlow<WeatherModel?>(null)
+    val weatherResponseDaily = _weatherResponseDaily.asStateFlow()
 
-    private val _precipitationProbability = MutableStateFlow<String?>(null)
-    val precipitationProbability: StateFlow<String?> = _precipitationProbability.asStateFlow()
+    suspend fun fetchWeatherResponseDaily(latitude: Double, longitude: Double) {
+        try {
+            val weatherData = weatherRepository.fetchCurrentWeatherData(
+                latitude = latitude,
+                longitude = longitude,
+                forecast_days = 1
+            )
+            _weatherResponseDaily.value = weatherData
+        } catch (e: Exception) {
+            println("${e}")
+        }
+    }
 
-    private val _currentTemperature = MutableStateFlow<String?>(null)
-    val currentTemperature: StateFlow<String?> = _currentTemperature.asStateFlow()
-
-    private val _weatherResponse = MutableStateFlow<WeatherModel?>(null)
-    val weatherResponse = _weatherResponse.asStateFlow()
-
-
-
-    suspend fun fetchTemperatureByLocation(latitude: Double, longitude: Double) {
+    suspend fun fetchWeatherResponseForecast(latitude: Double, longitude: Double) {
         try {
             val weatherData = weatherRepository.fetchCurrentWeatherData(
                 latitude = latitude,
                 longitude = longitude,
                 forecast_days = 14
             )
-            _weatherResponse.value = weatherData
-
-            val currentTemperature = weatherData.hourly.temperature2m.firstOrNull()
-            _currentTemperature.value = currentTemperature?.let { "$it°C" } ?: "Keine Daten"
-
-            val temperatureMax = weatherData.daily.temperature2mMax.firstOrNull()
-            val temperatureMin = weatherData.daily.temperature2mMin.firstOrNull()
-
-            if (temperatureMax != null && temperatureMin != null) {
-                _temperature.value = "Max: $temperatureMax°C, Min: $temperatureMin°C"
-            } else {
-                _temperature.value = "Keine Temperaturdaten verfügbar"
-            }
-
-            val weatherCode = weatherData.hourly.weatherCode.firstOrNull()
-            _weatherDescription.value = getWeatherDescriptionByCode(weatherCode)
-
-            val precipitation = weatherData.hourly.precipitationProbability.firstOrNull()
-            _precipitationProbability.value = "${precipitation ?: 0}%"
-
+            _weatherResponseForecast.value = weatherData
         } catch (e: Exception) {
-            _temperature.value = "Fehler: ${e.message}"
-            _weatherDescription.value = "Fehler: ${e.message}"
-            _precipitationProbability.value = "Fehler: ${e.message}"
+            println("${e}")
+//            _temperature.value = "Fehler: ${e.message}"
+//            _weatherDescription.value = "Fehler: ${e.message}"
+//            _precipitationProbability.value = "Fehler: ${e.message}"
         }
     }
 
-//TODO: locationRepository
+    //TODO: locationRepository
     @SuppressLint("MissingPermission")
     fun fetchLocation() {
         val cancellationTokenSource = CancellationTokenSource()
@@ -107,7 +90,8 @@ class WeatherViewModel(
             else -> "Wetterlage unbekannt"
         }
     }
-//TODO WeatherCodefunctions in einer fassen per Dictionary
+
+    //TODO WeatherCodefunctions in einer fassen per Dictionary
     fun getWeatherIconByCode(code: Int?): Int {
         return when (code) {
             0 -> R.drawable.suniconsmall
