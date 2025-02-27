@@ -24,6 +24,8 @@ val mockResponse = WeatherModel(
         temperature2mMax = listOf(6.5),
         temperature2mMin = listOf(6.3),
         weatherCode = listOf(3, 2),
+        sunrise = listOf(""),
+        sunset = listOf("")
         ),
     hourlyUnits = HourlyUnits(
         time = "iso8601",
