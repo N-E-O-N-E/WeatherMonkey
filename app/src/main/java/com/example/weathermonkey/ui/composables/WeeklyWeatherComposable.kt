@@ -24,6 +24,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.weathermonkey.data.repository.mockData.mockResponse
+import com.example.weathermonkey.utils.WeeklyDisplayedTextFormatter
+import com.example.weathermonkey.utils.dateFormatter
+import com.example.weathermonkey.utils.weekDays
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 @Composable
@@ -55,7 +58,7 @@ fun WeeklyWeatherComposable(
                 ) {
                     Column(modifier = Modifier.width(100.dp),horizontalAlignment = Alignment.Start) {
                         Text(
-                            text = data.daily.time.getOrNull(index) ?: "-",
+                            text = WeeklyDisplayedTextFormatter(index, data.daily.time.getOrNull(index) ?: "", dateFormatter, weekDays),
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White
                         )
@@ -63,7 +66,7 @@ fun WeeklyWeatherComposable(
                     Column(modifier = Modifier.width(180.dp),horizontalAlignment = Alignment.Start) {
 
                         Text(
-                            text = getWeatherDescriptionByCode(data.hourly.weatherCode.getOrNull(index)),
+                            text = getWeatherDescriptionByCode(data.daily.weatherCode.getOrNull(index)),
                             style = MaterialTheme.typography.bodyLarge,
                             color = Color.White,
                             textAlign = TextAlign.Left

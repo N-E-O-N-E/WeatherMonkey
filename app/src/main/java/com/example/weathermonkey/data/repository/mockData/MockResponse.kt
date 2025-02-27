@@ -22,8 +22,9 @@ val mockResponse = WeatherModel(
     daily = Daily(
         time = listOf("2025-02-24"),
         temperature2mMax = listOf(6.5),
-        temperature2mMin = listOf(6.3)
-    ),
+        temperature2mMin = listOf(6.3),
+        weatherCode = listOf(3, 2),
+        ),
     hourlyUnits = HourlyUnits(
         time = "iso8601",
         temperature2m = "°C",

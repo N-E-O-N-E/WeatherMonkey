@@ -107,7 +107,7 @@ class WeatherViewModel(
             else -> "Wetterlage unbekannt"
         }
     }
-
+//TODO WeatherCodefunctions in einer fassen per Dictionary
     fun getWeatherIconByCode(code: Int?): Int {
         return when (code) {
             0 -> R.drawable.suniconsmall
