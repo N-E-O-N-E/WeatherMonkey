@@ -32,6 +32,7 @@ fun CurrentWeatherComposable(
     modifier: Modifier = Modifier,
     data: WeatherModel,
     getWeatherIconXLByCode: (Int?) -> Int,
+    dayState: Int?
 ) {
     val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
     val sunPosition = currentHour / 24f
@@ -65,7 +66,7 @@ fun CurrentWeatherComposable(
                     color = Color.White,
                     fontSize = 80.sp
                 )
-                SunPositionComposable(hour = currentHour)
+                SunPositionComposable(hour = currentHour, dayState = dayState)
             }
         }
     }
@@ -81,20 +82,23 @@ fun CurrentWeatherComposable(
 )
 @Composable
 private fun CurrentWeatherComposablePreview() {
-    CurrentWeatherComposable(data = mockResponse, getWeatherIconXLByCode = { code ->
-        when (code) {
-            0 -> R.drawable.sunicon
-            1, 2, 3 -> R.drawable.cloudicon
-            45, 48 -> R.drawable.fogicon
-            51, 53, 55 -> R.drawable.rainicon
-            61, 63, 65 -> R.drawable.rainicon
-            66, 67 -> R.drawable.snowicon
-            71, 73, 75 -> R.drawable.snowicon
-            80, 81, 82 -> R.drawable.rainicon
-            85, 86 -> R.drawable.snowicon
-            95 -> R.drawable.thundericon
-            96, 99 -> R.drawable.thundericon
-            else -> R.drawable.cloudicon
-        }
-    })
+    CurrentWeatherComposable(
+        data = mockResponse, getWeatherIconXLByCode = { code ->
+            when (code) {
+                0 -> R.drawable.sunicon
+                1, 2, 3 -> R.drawable.cloudicon
+                45, 48 -> R.drawable.fogicon
+                51, 53, 55 -> R.drawable.rainicon
+                61, 63, 65 -> R.drawable.rainicon
+                66, 67 -> R.drawable.snowicon
+                71, 73, 75 -> R.drawable.snowicon
+                80, 81, 82 -> R.drawable.rainicon
+                85, 86 -> R.drawable.snowicon
+                95 -> R.drawable.thundericon
+                96, 99 -> R.drawable.thundericon
+                else -> R.drawable.cloudicon
+            }
+        },
+        dayState = 1
+    )
 }

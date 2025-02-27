@@ -3,6 +3,7 @@ package com.example.weathermonkey.ui.screens
 import android.Manifest
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +23,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -35,6 +37,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
 import com.example.weathermonkey.ui.composables.CurrentWeatherComposable
@@ -58,11 +61,10 @@ fun HomeScreen(
     val weatherData by weatherViewModel.weatherResponseForecast.collectAsState()
     val weatherDataDaily by weatherViewModel.weatherResponseDaily.collectAsState()
 
-    var test = weatherData?.let { data ->
+    var dayState = weatherData?.let { data ->
         indexedTempForCurrentHourAsString.getCurrentIsDayAsInt(data)
     }
-    Log.d("isDay", "test: $test")
-
+    Log.d("isDay", "test: $dayState")
 
     LaunchedEffect(locationPermissionState) {
         if (locationPermissionState.status.isGranted) {
@@ -95,17 +97,17 @@ fun HomeScreen(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        val test = weatherViewModel.getWeatherWallpaperByCode(
+
+        val wallpaperDay = weatherViewModel.getWeatherWallpaperByCode(
             indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
         )
 
         Image(
-            painter = painterResource(id = test),
+            painter = painterResource(id = if (dayState == 1) {wallpaperDay} else R.drawable.nightimage),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
-
 
         Column(
             modifier = Modifier
@@ -171,7 +173,8 @@ fun HomeScreen(
 
                 CurrentWeatherComposable(
                     data = weatherData ?: mockResponse,
-                    getWeatherIconXLByCode = weatherViewModel::getWeatherIconXLByCode
+                    getWeatherIconXLByCode = weatherViewModel::getWeatherIconXLByCode,
+                    dayState = dayState
                 )
 
                 HourlyForecastRow(

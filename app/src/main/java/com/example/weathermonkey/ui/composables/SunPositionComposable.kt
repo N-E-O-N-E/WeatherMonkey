@@ -13,18 +13,16 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int) {
+fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: Int?) {
     val currentHour = hour
-    //Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
     val sunPosition = currentHour / 24f
 
-    val isDayTime = currentHour in 6..19
+    val isDayTime = dayState == 1
     val sunColor = if (isDayTime) Color.Yellow else Color(0xFF23293B)
 
     Canvas(
@@ -90,7 +88,7 @@ if(isDayTime)
 )
 @Composable
 private fun SunPositionLineComposablePreview() {
-    SunPositionComposable(hour = 12)
+    SunPositionComposable(hour = 12, dayState = 1)
 }
 /*
 @Composable
