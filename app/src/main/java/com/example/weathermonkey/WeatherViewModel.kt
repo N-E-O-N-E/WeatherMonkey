@@ -124,4 +124,21 @@ class WeatherViewModel(
             else -> R.drawable.cloudiconsmall
         }
     }
+
+    fun getWeatherWallpaperByCode(code: Int?): Int {
+        return when (code) {
+            0 -> R.drawable.sunimage
+            1, 2, 3 -> R.drawable.sunimage
+            45, 48 -> R.drawable.cloudimage
+            51, 53, 55 -> R.drawable.rainimage
+            61, 63, 65 -> R.drawable.rainimage
+            66, 67 -> R.drawable.rainimage
+            71, 73, 75 -> R.drawable.snowimage
+            80, 81, 82 -> R.drawable.rainimage
+            85, 86 -> R.drawable.snowimage
+            95 -> R.drawable.rainimage
+            96, 99 -> R.drawable.rainimage
+            else -> R.drawable.sunimage
+        }
+    }
 }

@@ -34,12 +34,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
 import com.example.weathermonkey.ui.composables.CurrentWeatherComposable
 import com.example.weathermonkey.ui.composables.HourlyForecastRow
 import com.example.weathermonkey.ui.composables.WeeklyWeatherComposable
+import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
@@ -87,12 +87,18 @@ fun HomeScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
+
+        val test = weatherViewModel.getWeatherWallpaperByCode(
+            indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
+        )
+
         Image(
-            painter = painterResource(id = R.drawable.rainimage),
+            painter = painterResource(id = test),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
+
 
         Column(
             modifier = Modifier
@@ -102,7 +108,10 @@ fun HomeScreen(
             horizontalAlignment = Alignment.Start
         ) {
             Card(
-                modifier = Modifier.padding(horizontal = 6.dp).padding(vertical = 5.dp).height(70.dp),
+                modifier = Modifier
+                    .padding(horizontal = 6.dp)
+                    .padding(vertical = 5.dp)
+                    .height(70.dp),
                 colors = CardDefaults.cardColors(containerColor = Color.Black.copy(alpha = 0.11f))
 
             ) {
