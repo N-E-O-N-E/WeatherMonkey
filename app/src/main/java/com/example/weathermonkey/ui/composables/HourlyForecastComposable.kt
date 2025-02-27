@@ -26,8 +26,8 @@ fun HourlyForecastRow(
     data: WeatherModel,
     convertToIcon: (Int?) -> Int
 ) {
-    val sunriseTimes = data.daily.sunrise.map { it.substring(11, 16) }
-    val sunsetTimes = data.daily.sunset.map { it.substring(11, 16) }
+    val sunriseTimes = data.daily.sunrise.map { it.substring(11, 13) }
+    val sunsetTimes = data.daily.sunset.map { it.substring(11, 13) }
 
     Card(
         modifier = Modifier.padding(6.dp),
@@ -40,11 +40,12 @@ fun HourlyForecastRow(
             items(data.hourly.time.size) { index ->
 
                 val time = data.hourly.time.getOrNull(index)?.substring(11, 16) ?: "00:00"
+                val hourOnly = time.substring(0, 2)
 
 
                 when {
-                    sunriseTimes.contains(time) -> Log.d("HourlyForecastRow", "Sunrise at $time")
-                    sunsetTimes.contains(time) -> Log.d("HourlyForecastRow", "Sunset at $time")
+                    sunriseTimes.contains(hourOnly) -> Log.d("HourlyForecastRow", "Sunrise at $time")
+                    sunsetTimes.contains(hourOnly) -> Log.d("HourlyForecastRow", "Sunset at $time")
                     else -> Log.d("HourlyForecastRow", "Regular hour: $time")
                 }
 
@@ -61,8 +62,8 @@ fun HourlyForecastRow(
                         fontSize = 14.sp
                     )
                     val imgRes = when {
-                        sunriseTimes.contains(time) -> R.drawable.sunseticonsmall
-                        sunsetTimes.contains(time) -> R.drawable.sunriseiconsmall
+                        sunriseTimes.contains(hourOnly) -> R.drawable.sunseticonsmall
+                        sunsetTimes.contains(hourOnly) -> R.drawable.sunriseiconsmall
                         else -> convertToIcon(data.hourly.weatherCode.getOrNull(index) ?: 0)
 
                     }
