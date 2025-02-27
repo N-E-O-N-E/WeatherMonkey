@@ -1,6 +1,7 @@
 package com.example.weathermonkey.ui.composables
 
 import WeatherModel
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,8 +26,8 @@ fun HourlyForecastRow(
     data: WeatherModel,
     convertToIcon: (Int?) -> Int
 ) {
-    val sunriseTimes = data.daily.sunrise.map { it.split("T").getOrNull(1) ?: "00:00" }
-    val sunsetTimes = data.daily.sunset.map { it.split("T").getOrNull(1) ?: "00:00" }
+    val sunriseTimes = data.daily.sunrise.map { it.substring(11, 16) }
+    val sunsetTimes = data.daily.sunset.map { it.substring(11, 16) }
 
     Card(
         modifier = Modifier.padding(6.dp),
@@ -37,7 +38,16 @@ fun HourlyForecastRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(data.hourly.time.size) { index ->
-                val time = data.hourly.time.getOrNull(index)?.split("T")?.getOrNull(1) ?: "00:00"
+
+                val time = data.hourly.time.getOrNull(index)?.substring(11, 16) ?: "00:00"
+
+
+                when {
+                    sunriseTimes.contains(time) -> Log.d("HourlyForecastRow", "Sunrise at $time")
+                    sunsetTimes.contains(time) -> Log.d("HourlyForecastRow", "Sunset at $time")
+                    else -> Log.d("HourlyForecastRow", "Regular hour: $time")
+                }
+
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     modifier = Modifier
@@ -54,6 +64,7 @@ fun HourlyForecastRow(
                         sunriseTimes.contains(time) -> R.drawable.sunseticonsmall
                         sunsetTimes.contains(time) -> R.drawable.sunriseiconsmall
                         else -> convertToIcon(data.hourly.weatherCode.getOrNull(index) ?: 0)
+
                     }
                     Image(
                         painter = painterResource(id = imgRes),
