@@ -108,20 +108,38 @@ class WeatherViewModel(
         }
     }
 
-    fun getWeatherIconByCode(code: Int?): Int {
-        return when (code) {
-            0 -> R.drawable.suniconsmall
-            1, 2, 3 -> R.drawable.cloudiconsmall
-            45, 48 -> R.drawable.fogiconsmall
-            51, 53, 55 -> R.drawable.rainiconsmall
-            61, 63, 65 -> R.drawable.rainiconsmall
-            66, 67 -> R.drawable.snowiconsmall
-            71, 73, 75 -> R.drawable.snowiconsmall
-            80, 81, 82 -> R.drawable.rainiconsmall
-            85, 86 -> R.drawable.snowiconsmall
-            95 -> R.drawable.thundericonsmall
-            96, 99 -> R.drawable.thundericonsmall
-            else -> R.drawable.cloudiconsmall
+    fun getWeatherIconByCode(code: Int?, isDayState: Int?): Int {
+
+        if (isDayState == 1) {
+            return when (code) {
+                0 -> R.drawable.suniconsmall
+                1, 2, 3 -> R.drawable.cloudiconsmall
+                45, 48 -> R.drawable.fogiconsmall
+                51, 53, 55 -> R.drawable.rainiconsmall
+                61, 63, 65 -> R.drawable.rainiconsmall
+                66, 67 -> R.drawable.snowiconsmall
+                71, 73, 75 -> R.drawable.snowiconsmall
+                80, 81, 82 -> R.drawable.rainiconsmall
+                85, 86 -> R.drawable.snowiconsmall
+                95 -> R.drawable.thundericonsmall
+                96, 99 -> R.drawable.thundericonsmall
+                else -> R.drawable.cloudiconsmall
+            }
+        } else {
+            return when (code) {
+                0 -> R.drawable.nightstarsiconsmall
+                1, 2, 3 -> R.drawable.nightcloudiconsmall
+                45, 48 -> R.drawable.fogiconsmall
+                51, 53, 55 -> R.drawable.rainiconsmall
+                61, 63, 65 -> R.drawable.rainiconsmall
+                66, 67 -> R.drawable.snowiconsmall
+                71, 73, 75 -> R.drawable.snowiconsmall
+                80, 81, 82 -> R.drawable.rainiconsmall
+                85, 86 -> R.drawable.snowiconsmall
+                95 -> R.drawable.thundericonsmall
+                96, 99 -> R.drawable.thundericonsmall
+                else -> R.drawable.nightcloudiconsmall
+            }
         }
     }
 

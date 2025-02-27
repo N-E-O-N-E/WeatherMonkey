@@ -24,7 +24,7 @@ import com.example.weathermonkey.R
 @Composable
 fun HourlyForecastRow(
     data: WeatherModel,
-    convertToIcon: (Int?) -> Int
+    convertToIcon: (Int?, Int) -> Int
 ) {
     val sunriseTimes = data.daily.sunrise.map { it.substring(11, 13) }
     val sunsetTimes = data.daily.sunset.map { it.substring(11, 13) }
@@ -64,7 +64,7 @@ fun HourlyForecastRow(
                     val imgRes = when {
                         sunriseTimes.contains(hourOnly) -> R.drawable.sunseticonsmall
                         sunsetTimes.contains(hourOnly) -> R.drawable.sunriseiconsmall
-                        else -> convertToIcon(data.hourly.weatherCode.getOrNull(index) ?: 0)
+                        else -> convertToIcon(data.hourly.weatherCode.getOrNull(index) ?: 0, data.hourly.isDay.getOrNull(index) ?: 0)
 
                     }
                     Image(
