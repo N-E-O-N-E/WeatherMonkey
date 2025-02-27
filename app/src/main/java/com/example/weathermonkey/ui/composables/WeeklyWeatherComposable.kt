@@ -56,7 +56,7 @@ fun WeeklyWeatherComposable(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Column(modifier = Modifier.width(100.dp),horizontalAlignment = Alignment.Start) {
+                    Column(modifier = Modifier.width(50.dp),horizontalAlignment = Alignment.Start) {
                         Text(
                             text = WeeklyDisplayedTextFormatter(index, data.daily.time.getOrNull(index) ?: "", dateFormatter, weekDays),
                             style = MaterialTheme.typography.bodyLarge,
