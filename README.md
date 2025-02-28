@@ -20,5 +20,6 @@ Mit der Live Wetter App bist du jederzeit bestens Ã¼ber das Wetter informiert â€
 
 ---
 
-![Screenshot_20250228_153545](https://github.com/user-attachments/assets/1d1751fe-caa5-4ec5-8647-832ae8be906f)
-![Screenshot_20250228_153432](https://github.com/user-attachments/assets/fd4bab97-fa17-4673-8367-866ab8f829d2)
+
+![Screenshot_20250228_153545](https://github.com/user-attachments/assets/16cacb7d-2cb2-42ee-81f8-db2cbaf1bcbc)
+![Screenshot_20250228_153432](https://github.com/user-attachments/assets/17b6471a-477b-411c-9829-e7ef23849e8b)
