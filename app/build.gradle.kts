@@ -106,4 +106,7 @@ dependencies {
 
     // Permissions
     implementation(libs.accompanist.permissions)
+
+    // okHttp
+    implementation(libs.logging.interceptor)
 }
