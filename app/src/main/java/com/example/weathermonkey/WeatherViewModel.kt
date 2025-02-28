@@ -7,6 +7,8 @@ import android.location.Location
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
+import com.example.weathermonkey.data.repository.mockData.mockResponse
+import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -59,6 +61,20 @@ class WeatherViewModel(
 //            _weatherDescription.value = "Fehler: ${e.message}"
 //            _precipitationProbability.value = "Fehler: ${e.message}"
         }
+    }
+
+    fun fetchWallpaperByCode(dayState: Int?): Int {
+        val result =
+            if (dayState == 1) {
+            getWeatherWallpaperByCode(
+                indexedTempForCurrentHourAsString.getCurrentHoureAsInt(
+                    weatherResponseForecast.value ?: mockResponse
+                )
+            )
+        } else {
+            R.drawable.nightimage
+        }
+        return result
     }
 
     //TODO: locationRepository
@@ -185,3 +201,4 @@ class WeatherViewModel(
         }
     }
 }
+

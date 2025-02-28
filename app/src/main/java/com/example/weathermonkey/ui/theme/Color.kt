@@ -11,4 +11,5 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 
-val fontColors = Color(0xFFFFFFFF)
+val moonColor = Color(0xFFB7DFFF)
+val sunColor = Color(0xFFFFF194)

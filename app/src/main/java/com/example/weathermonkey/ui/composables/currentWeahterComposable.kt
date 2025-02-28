@@ -55,7 +55,7 @@ fun CurrentWeatherComposable(
                 modifier = Modifier
                     .padding(30.dp)
                     .scale(1.7f),
-                painter = painterResource(id = getWeatherIconXLByCode(data.daily.weatherCode.firstOrNull(), dayState ?: 0)),
+                painter = painterResource(id = getWeatherIconXLByCode(data.hourly.weatherCode.firstOrNull(), dayState ?: 0)),
                 contentDescription = "",
             )
 

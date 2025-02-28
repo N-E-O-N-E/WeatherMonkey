@@ -21,11 +21,13 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.weathermonkey.WeatherViewModel
 import com.example.weathermonkey.ui.screens.HistoryScreen
 import com.example.weathermonkey.ui.screens.HomeScreen
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(weatherViewModel: WeatherViewModel = koinViewModel()) {
     var selectedNavItems by remember { mutableStateOf(NavModel.First) }
     val navController: NavHostController = rememberNavController()
     Scaffold(
@@ -71,7 +73,9 @@ fun AppNavigation() {
         ) {
 
             composable<HomeView> {
-                HomeScreen(modifier = Modifier.padding(innerPadding))
+                HomeScreen(
+                    weatherViewModel = weatherViewModel,
+                )
             }
             composable<HistoryView> {
                 HistoryScreen(modifier = Modifier.padding(innerPadding))
