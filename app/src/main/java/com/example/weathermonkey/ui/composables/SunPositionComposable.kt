@@ -32,7 +32,7 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
     }
 
     val isDayTime = dayState == 1
-    val sunColor = if (isDayTime) Color(sunColor.value) else Color(moonColor.value)
+    val colors = if (isDayTime) Color(sunColor.value) else Color(moonColor.value)
 
     Canvas(
         modifier = modifier
@@ -43,7 +43,7 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
         val width = size.width
         val height = size.height * 0.9f
 
-        // Zeichnen der Wellenlinie
+        // Wellenlinie oben
         val pathOne = Path().apply {
             moveTo(0f, height)
             for (i in 0..360) {
@@ -52,7 +52,7 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
                 lineTo(x, y)
             }
         }
-        // Zeichnen der Wellenlinie
+        // Linie unten
         val path = Path().apply {
             moveTo(0f, height)
             for (i in 0..360) {
@@ -73,18 +73,18 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
             style = Stroke(width = 2.dp.toPx())
         )
 
-        // Berechnung der Sonnenposition mit Animation
+        // Sonnenposition
         val sunX = sunPosition.value * width
         val sunY = height - (sin(sunPosition.value * PI) * height * 0.6f).toFloat()
 
-        // Zeichnen der Sonne/Mond
+        // Sonne und Mond
         drawCircle(
-            color = sunColor,
+            color = colors,
             radius = 30f,
             center = Offset(sunX, sunY)
         )
 
-        // Sonnenstrahlen nur am Tag zeichnen
+        // Sonnenstrahlen
         if (isDayTime) {
             for (i in 0 until 8) {
                 val angle = (i * 90) * (PI / 360f)
@@ -107,8 +107,6 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
         }
     }
 }
-
-
 
 @Preview(
     name = "SunPositionLinePreview",
