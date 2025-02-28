@@ -78,8 +78,8 @@ class WeatherViewModel(
     fun getWeatherDescriptionByCode(code: Int?): String {
         return when (code) {
             0, 1 -> "Sonnig"
-            2 -> "sonnig bewölkt"
-            3 -> "bewölkt"
+            2 -> "Sonnig bewölkt"
+            3 -> "Bewölkt"
             45, 48 -> "Nebel"
             51, 53, 55 -> "Leichter Nieselregen"
             61, 63, 65 -> "Regen"
