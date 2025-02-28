@@ -77,8 +77,9 @@ class WeatherViewModel(
 
     fun getWeatherDescriptionByCode(code: Int?): String {
         return when (code) {
-            0 -> "Sonnig"
-            1, 2, 3 -> "Überwiegend sonnig"
+            0, 1 -> "Sonnig"
+            2 -> "sonnig bewölkt"
+            3 -> "bewölkt"
             45, 48 -> "Nebel"
             51, 53, 55 -> "Leichter Nieselregen"
             61, 63, 65 -> "Regen"
@@ -95,8 +96,9 @@ class WeatherViewModel(
     fun getWeatherIconXLByCode(code: Int?, isDayState: Int): Int {
         if (isDayState == 1) {
             return when (code) {
-                0 -> R.drawable.sunicon
-                1, 2, 3 -> R.drawable.cloudicon
+                0, 1 -> R.drawable.sunicon
+                2 -> R.drawable.cloudicon
+                3 -> R.drawable.cloudmaxicon
                 45, 48 -> R.drawable.fogicon
                 51, 53, 55 -> R.drawable.rainicon
                 61, 63, 65 -> R.drawable.rainicon
@@ -110,8 +112,9 @@ class WeatherViewModel(
             }
         } else {
             return when (code) {
-                0 -> R.drawable.nightstarsicon
-                1, 2, 3 -> R.drawable.nightcloudicon
+                0, 1 -> R.drawable.nightstarsicon
+                2 -> R.drawable.nightcloudicon
+                3 -> R.drawable.cloudmaxicon
                 45, 48 -> R.drawable.fogicon
                 51, 53, 55 -> R.drawable.rainicon
                 61, 63, 65 -> R.drawable.rainicon
@@ -130,8 +133,9 @@ class WeatherViewModel(
 
         if (isDayState == 1) {
             return when (code) {
-                0 -> R.drawable.suniconsmall
-                1, 2, 3 -> R.drawable.cloudiconsmall
+                0, 1 -> R.drawable.suniconsmall
+                2 -> R.drawable.cloudiconsmall
+                3 -> R.drawable.cloudmaxiconsmall
                 45, 48 -> R.drawable.fogiconsmall
                 51, 53, 55 -> R.drawable.rainiconsmall
                 61, 63, 65 -> R.drawable.rainiconsmall
@@ -145,8 +149,9 @@ class WeatherViewModel(
             }
         } else {
             return when (code) {
-                0 -> R.drawable.nightstarsiconsmall
-                1, 2, 3 -> R.drawable.nightcloudiconsmall
+                0, 1 -> R.drawable.nightstarsiconsmall
+                2 -> R.drawable.nightcloudiconsmall
+                3 -> R.drawable.cloudmaxiconsmall
                 45, 48 -> R.drawable.fogiconsmall
                 51, 53, 55 -> R.drawable.rainiconsmall
                 61, 63, 65 -> R.drawable.rainiconsmall
@@ -164,8 +169,9 @@ class WeatherViewModel(
     fun getWeatherWallpaperByCode(code: Int?): Int {
         Log.d("weatherCode", "test: $code")
         return when (code) {
-            0 -> R.drawable.sunimage
-            1, 2, 3 -> R.drawable.suncloudimage
+            0, 1 -> R.drawable.sunimage
+            2 -> R.drawable.suncloudimage
+            3 -> R.drawable.cloudimage
             45, 48 -> R.drawable.cloudimage
             51, 53, 55 -> R.drawable.rainimage
             61, 63, 65 -> R.drawable.rainimage
