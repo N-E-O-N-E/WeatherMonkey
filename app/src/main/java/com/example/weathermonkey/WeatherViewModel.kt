@@ -4,6 +4,7 @@ import WeatherModel
 import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -161,6 +162,7 @@ class WeatherViewModel(
     }
 
     fun getWeatherWallpaperByCode(code: Int?): Int {
+        Log.d("weatherCode", "test: $code")
         return when (code) {
             0 -> R.drawable.sunimage
             1, 2, 3 -> R.drawable.sunimage

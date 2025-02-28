@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -60,6 +61,7 @@ fun HomeScreen(
     var updateLocation by remember { mutableStateOf(false) }
     val weatherData by weatherViewModel.weatherResponseForecast.collectAsState()
     val weatherDataDaily by weatherViewModel.weatherResponseDaily.collectAsState()
+    var wallpaperDay by remember { mutableIntStateOf(R.drawable.sunimage) }
 
     var dayState = weatherData?.let { data ->
         indexedTempForCurrentHourAsString.getCurrentIsDayAsInt(data)
@@ -91,6 +93,9 @@ fun HomeScreen(
                 longitude = location.longitude
             )
         }
+        wallpaperDay = weatherViewModel.getWeatherWallpaperByCode(
+            indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
+        )
     }
 
     Box(
@@ -98,9 +103,7 @@ fun HomeScreen(
     ) {
 
 
-        val wallpaperDay = weatherViewModel.getWeatherWallpaperByCode(
-            indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
-        )
+
 
         Image(
             painter = painterResource(id = if (dayState == 1) {wallpaperDay} else R.drawable.nightimage),
