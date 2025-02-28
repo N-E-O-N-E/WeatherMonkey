@@ -165,7 +165,7 @@ class WeatherViewModel(
         Log.d("weatherCode", "test: $code")
         return when (code) {
             0 -> R.drawable.sunimage
-            1, 2, 3 -> R.drawable.sunimage
+            1, 2, 3 -> R.drawable.suncloudimage
             45, 48 -> R.drawable.cloudimage
             51, 53, 55 -> R.drawable.rainimage
             61, 63, 65 -> R.drawable.rainimage

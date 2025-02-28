@@ -87,15 +87,18 @@ fun HomeScreen(
             weatherViewModel.fetchWeatherResponseDaily(
                 latitude = location.latitude,
                 longitude = location.longitude
+
             )
+            wallpaperDay = weatherViewModel.getWeatherWallpaperByCode(
+                indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
+            )
+
             weatherViewModel.fetchWeatherResponseForecast(
                 latitude = location.latitude,
                 longitude = location.longitude
             )
         }
-        wallpaperDay = weatherViewModel.getWeatherWallpaperByCode(
-            indexedTempForCurrentHourAsString.getCurrentHoureAsInt(weatherData ?: mockResponse)
-        )
+
     }
 
     Box(
