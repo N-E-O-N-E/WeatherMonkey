@@ -6,7 +6,7 @@ import com.squareup.moshi.Json
 
 @Entity(tableName = "local_data")
 data class LocalDataModel(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
 
     @Json(name = "latitude")

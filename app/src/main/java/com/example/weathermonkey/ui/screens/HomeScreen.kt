@@ -87,7 +87,6 @@ fun HomeScreen(
             )
         }
 
-        weatherViewModel.deleteLocalData()
         weatherViewModel.saveLocalData(
             data = LocalDataModel(
                 latitude = weatherDataDaily?.latitude ?: 0.0,

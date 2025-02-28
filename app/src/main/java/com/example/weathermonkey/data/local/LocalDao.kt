@@ -13,9 +13,6 @@ interface LocalDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLocalData(data: LocalDataModel)
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateLocalData(data: LocalDataModel)
-
     @Query("SELECT * FROM local_data")
     fun getAllLocalData(): Flow<List<LocalDataModel>>
 
