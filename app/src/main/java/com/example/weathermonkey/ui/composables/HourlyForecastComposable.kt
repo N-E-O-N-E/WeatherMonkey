@@ -17,10 +17,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weathermonkey.R
+import com.example.weathermonkey.data.repository.mockData.mockResponse
 
+/**
+ * Composable function to display the hourly weather forecast in a horizontal row.
+ *
+ * @param data WeatherModel containing weather data.
+ * @param convertToIcon Function to fetch the appropriate weather icon based on weather code and day state.
+ */
 @Composable
 fun HourlyForecastRow(
     data: WeatherModel,
@@ -85,6 +93,29 @@ fun HourlyForecastRow(
         }
     }
 }
-
-
-//data.hourly.weatherCode.getOrNull(index)?.toString() ?: "N/A"
+/**
+ * Preview function for HourlyWForecastRowComposable.
+ */
+@Preview
+@Composable
+private fun HourlyForecastRowPreview() {
+    HourlyForecastRow(
+        data = mockResponse, convertToIcon = { code, _ ->
+            when (code) {
+                0, 1 -> R.drawable.suniconsmall
+                2 -> R.drawable.cloudiconsmall
+                3 -> R.drawable.cloudmaxiconsmall
+                45, 48 -> R.drawable.fogiconsmall
+                51, 53, 55 -> R.drawable.rainiconsmall
+                61, 63, 65 -> R.drawable.rainiconsmall
+                66, 67 -> R.drawable.snowiconsmall
+                71, 73, 75 -> R.drawable.snowiconsmall
+                80, 81, 82 -> R.drawable.rainiconsmall
+                85, 86 -> R.drawable.snowiconsmall
+                95 -> R.drawable.thundericonsmall
+                96, 99 -> R.drawable.thundericonsmall
+                else -> R.drawable.cloudiconsmall
+            }
+        }
+    )
+}

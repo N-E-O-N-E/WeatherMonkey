@@ -21,7 +21,16 @@ import com.example.weathermonkey.ui.theme.sunColor
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
-
+/**
+ * Composable function that visualizes the position of the sun or moon throughout the day.
+ *
+ * This function draws a sinusoidal path to represent the sun's movement and animates
+ * the sun or moon's position based on the given hour.
+ *
+ * @param modifier Modifier to apply layout changes.
+ * @param hour The current hour (0-23) used to determine the sun's position.
+ * @param dayState Nullable integer indicating whether it is day (1) or night (other values).
+ */
 @Composable
 fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: Int?) {
     val targetSunPosition = hour / 24f
@@ -107,7 +116,9 @@ fun SunPositionComposable(modifier: Modifier = Modifier, hour: Int, dayState: In
         }
     }
 }
-
+/**
+ * Preview function for SunPositionComposable, displaying the sun at noon during daytime.
+ */
 @Preview(
     name = "SunPositionLinePreview",
     device = "id:pixel_7_pro",

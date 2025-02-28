@@ -28,7 +28,15 @@ import com.example.weathermonkey.utils.WeeklyDisplayedTextFormatter
 import com.example.weathermonkey.utils.dateFormatter
 import com.example.weathermonkey.utils.weekDays
 import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-
+/**
+ * Composable function that displays the weekly weather forecast in a vertical list.
+ *
+ * This function uses a `LazyColumn` inside a `Card` to present daily weather details, including
+ * the day, weather description, and temperature range.
+ *
+ * @param data WeatherModel containing daily weather data.
+ * @param getWeatherDescriptionByCode Function that returns a weather description based on a given weather code.
+ */
 @Composable
 fun WeeklyWeatherComposable(
     data: WeatherModel,
@@ -86,6 +94,9 @@ fun WeeklyWeatherComposable(
         }
     }
 }
+/**
+ * Preview function for WeeklyWeatherComposable, displaying mock data for design verification.
+ */
 @Preview(showBackground = true)
 @Composable
 fun PreviewWeeklyWeatherComposable() {

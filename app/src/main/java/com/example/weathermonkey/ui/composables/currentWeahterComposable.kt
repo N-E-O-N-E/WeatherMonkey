@@ -26,7 +26,14 @@ import com.example.weathermonkey.R
 import com.example.weathermonkey.data.repository.mockData.mockResponse
 import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
 import java.util.Calendar
-
+/**
+ * Composable function to display the current weather information.
+ *
+ * @param modifier Modifier to be applied to the composable.
+ * @param data WeatherModel containing weather data.
+ * @param getWeatherIconXLByCode Function to fetch weather icon resource ID based on weather code and day state.
+ * @param dayState Optional integer representing the state of the day.
+ */
 @Composable
 fun CurrentWeatherComposable(
     modifier: Modifier = Modifier,
@@ -71,7 +78,9 @@ fun CurrentWeatherComposable(
         }
     }
 }
-
+/**
+ * Preview function for CurrentWeatherComposable.
+ */
 @Preview(
     name = "CurrentWeatherComp",
     device = "id:pixel_7_pro",
