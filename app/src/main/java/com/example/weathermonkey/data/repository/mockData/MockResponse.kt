@@ -19,12 +19,15 @@ val mockResponse = WeatherModel(
         temperature2mMax = "°C",
         temperature2mMin = "°C"
     ),
-    daily = Daily(
-        time = listOf("2025-02-24","2025-02-24","2025-02-24","2025-02-24","2025-02-24","2025-02-24","2025-02-24",),
-        temperature2mMax = listOf(6.5,6.5,6.5,6.5,6.5,6.5,6.5,),
-        temperature2mMin = listOf(6.3,6.3,6.3,6.3,6.3,6.3,6.3,),
-        weatherCode = listOf(3, 2),
-        sunrise = listOf(
+    daily = Daily(time = listOf(
+            "2025-02-24",
+            "2025-02-24",
+            "2025-02-24",
+            "2025-02-24",
+            "2025-02-24",
+            "2025-02-24",
+            "2025-02-24",
+        ), temperature2mMax = listOf(6.5, 6.5, 6.5, 6.5, 6.5, 6.5, 6.5), temperature2mMin = listOf(6.3, 6.3, 6.3, 6.3, 6.3, 6.3, 6.3), weatherCode = listOf(3, 2), sunrise = listOf(
             "2025-02-27T06:56",
             "2025-02-28T06:54",
             "2025-03-01T06:51",
@@ -39,8 +42,7 @@ val mockResponse = WeatherModel(
             "2025-03-10T06:31",
             "2025-03-11T06:29",
             "2025-03-12T06:26"
-        ),
-        sunset = listOf(
+        ), sunset = listOf(
             "2025-02-27T17:41",
             "2025-02-28T17:43",
             "2025-03-01T17:45",
@@ -55,8 +57,7 @@ val mockResponse = WeatherModel(
             "2025-03-10T18:01",
             "2025-03-11T18:03",
             "2025-03-12T18:05"
-        )
-    ),
+        )),
     hourlyUnits = HourlyUnits(
         time = "iso8601",
         temperature2m = "°C",

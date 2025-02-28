@@ -5,10 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import android.util.Log
-import androidx.compose.ui.util.fastAll
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.weathermonkey.data.local.LocalDao
 import com.example.weathermonkey.data.local.LocalDataModel
 import com.example.weathermonkey.data.local.LocalDatabase
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface

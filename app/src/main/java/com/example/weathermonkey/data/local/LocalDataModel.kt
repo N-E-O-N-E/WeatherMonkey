@@ -8,7 +8,6 @@ import com.squareup.moshi.Json
 data class LocalDataModel(
     @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
-
     @Json(name = "latitude")
     val latitude: Double,
     @Json(name = "longitude")
