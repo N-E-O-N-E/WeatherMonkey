@@ -34,8 +34,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.weathermonkey.R
 import com.example.weathermonkey.WeatherViewModel
+import com.example.weathermonkey.data.local.LocalDataModel
 import com.example.weathermonkey.data.repository.mockData.mockResponse
 import com.example.weathermonkey.ui.composables.CurrentWeatherComposable
 import com.example.weathermonkey.ui.composables.HourlyForecastRow
@@ -55,11 +55,9 @@ fun HomeScreen(
     var updateLocation by remember { mutableStateOf(false) }
     val weatherData by weatherViewModel.weatherResponseForecast.collectAsState()
     val weatherDataDaily by weatherViewModel.weatherResponseDaily.collectAsState()
-
     val dayState = weatherData?.let { data ->
         indexedTempForCurrentHourAsString.getCurrentIsDayAsInt(data)
     }
-
     Log.d("isDay", "isDay: $dayState")
 
     LaunchedEffect(locationPermissionState) {
@@ -88,6 +86,14 @@ fun HomeScreen(
                 longitude = location.longitude
             )
         }
+
+        weatherViewModel.deleteLocalData()
+        weatherViewModel.saveLocalData(
+            data = LocalDataModel(
+                latitude = weatherDataDaily?.latitude ?: 0.0,
+                longitude = weatherDataDaily?.longitude ?: 0.0
+            )
+        )
 
     }
 

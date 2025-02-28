@@ -5,20 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [LocationData::class], version = 1, exportSchema = false)
-abstract class LocationsDatabase : RoomDatabase() {
+@Database(entities = [LocalDataModel::class], version = 1, exportSchema = false)
+abstract class LocalDatabase : RoomDatabase() {
 
-    abstract fun dao(): LocationsDao
+    abstract fun dao(): LocalDao
 
     companion object {
         @Volatile
-        private var instance: LocationsDatabase? = null
+        private var instance: LocalDatabase? = null
 
-        fun getDatabase(context: Context): LocationsDatabase {
+        fun getDatabase(context: Context): LocalDatabase {
             return instance ?: synchronized(this) {
                 Room.databaseBuilder(
                     context,
-                    LocationsDatabase::class.java,
+                    LocalDatabase::class.java,
                     "locations_db"
                 ).build().also { instance = it }
             }

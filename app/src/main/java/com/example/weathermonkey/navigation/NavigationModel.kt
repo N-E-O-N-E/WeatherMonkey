@@ -16,7 +16,7 @@ enum class NavModel(
         icon = R.drawable.baseline_sunny_snowing_24),
     Second(
         route = HistoryView,
-        label ="Historical",
+        label ="Details",
         icon = R.drawable.baseline_history_24),
 
 }

@@ -5,7 +5,12 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Location
 import android.util.Log
+import androidx.compose.ui.util.fastAll
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weathermonkey.data.local.LocalDao
+import com.example.weathermonkey.data.local.LocalDataModel
+import com.example.weathermonkey.data.local.LocalDatabase
 import com.example.weathermonkey.data.repository.WeatherRepositoryInterface
 import com.example.weathermonkey.data.repository.mockData.mockResponse
 import com.example.weathermonkey.utils.indexedTempForCurrentHourAsString
@@ -14,13 +19,18 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 class WeatherViewModel(
     application: Application,
     private val weatherRepository: WeatherRepositoryInterface,
 ) : AndroidViewModel(application) {
+
+    private val dao = LocalDatabase.getDatabase(application.applicationContext).dao()
 
     private val fusedLocationProviderClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(application)
@@ -33,6 +43,32 @@ class WeatherViewModel(
 
     private val _weatherResponseDaily = MutableStateFlow<WeatherModel?>(null)
     val weatherResponseDaily = _weatherResponseDaily.asStateFlow()
+
+
+    val data = dao.getAllLocalData().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(),
+        initialValue = emptyList()
+    )
+
+
+    fun getAllLocalData() {
+        viewModelScope.launch {
+            dao.getAllLocalData()
+        }
+    }
+
+    fun saveLocalData(data: LocalDataModel) {
+       viewModelScope.launch {
+           dao.insertLocalData(data)
+       }
+    }
+
+    fun deleteLocalData() {
+        viewModelScope.launch {
+            dao.deleteAllLocalData()
+        }
+    }
 
     suspend fun fetchWeatherResponseDaily(latitude: Double, longitude: Double) {
         try {
